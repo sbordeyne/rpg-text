@@ -1,5 +1,5 @@
-from lib.utils import sanitized_input
-from lib.game import Game
+from rpglib.utils import sanitized_input
+from rpglib.game import Game
 
 
 def main():

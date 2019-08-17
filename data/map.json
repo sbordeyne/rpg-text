@@ -3,6 +3,14 @@
     "name": "Start Area",
     "position": [0, 0],
     "map_icon": "O",
-    "exits": ["n", "s", "e", "w"]
+    "exits": ["n", "s", "e", "w"],
+    "npc": []
+  },
+  {
+    "name": "Fishermen Village",
+    "position": [-1, 0],
+    "map_icon": "V",
+    "exits": ["n", "s", "e", "w"],
+    "npc": ["Angus"]
   }
 ]
