@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Start Area",
+    "position": [0, 0],
+    "map_icon": "O",
+    "exits": ["n", "s", "e", "w"]
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "commoner": {
+    "hp_multiplier": 5,
+    "mp_multiplier": 5,
+    "xp_threshold": 100
+  },
+  "warrior": {
+    "hp_multiplier": 10,
+    "mp_multiplier": 5,
+    "xp_threshold": 1000
+  },
+  "spellcaster": {
+    "hp_multiplier": 5,
+    "mp_multiplier": 10,
+    "xp_threshold": 1500
+  }
+}
