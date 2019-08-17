@@ -1,5 +1,6 @@
 import json
 import glob
+import os
 
 
 class SaveSystem:
@@ -10,6 +11,10 @@ class SaveSystem:
         if save_name == "list":
             print("Save name 'list' is reserved, please choose a different save name.")
             return
+
+        if not os.path.exists("saves"):
+            os.mkdir("saves")
+
         data = {"game": self.game.serialize(),
                 "player": self.game.player.serialize(),
                 "map": self.game.map.serialize(),
@@ -23,4 +28,7 @@ class SaveSystem:
 
     @staticmethod
     def get_save_names(self):
-        return [name.split(".")[0] for name in glob.glob("*.json")]
+        if not os.path.exists("saves"):
+            return []
+        
+        return [name.split(".")[0] for name in glob.glob("saves/*.json")]
