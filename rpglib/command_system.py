@@ -23,7 +23,9 @@ class CommandSystem:
                          Command("talk", self.game.character_system.talk),
                          Command("map", self.game.map.display),
                          Command("help", self.help),
-                         Command("info", self.info)]
+                         Command("info", self.info),
+                         Command("save", self.game.save_system.save),
+                         Command("load", self.game.save_system.load)]
         pass
 
     def parse(self, command):

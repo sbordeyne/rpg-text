@@ -28,3 +28,9 @@ class Location:
 
     def info(self):
         return f"{str(self)} ; Exits : {self.exits} ; NPCs : {self.npc}"
+
+    def serialize(self):
+        return {}
+
+    def deserialize(self, data):
+        return

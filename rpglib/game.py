@@ -58,3 +58,10 @@ class Game:
             print("Saves : " + ", ".join(found_saves))
         else:
             self.save_system.load(save_name)
+
+    def serialize(self):
+        return {"n_turns": self.n_turns}
+
+    def deserialize(self, data):
+        self.n_turns = data["n_turns"]
+        return

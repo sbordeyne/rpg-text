@@ -27,11 +27,20 @@ class Item:
 class Inventory:
     def __init__(self):
         self.items = []
+        self.money = 0
 
     def get_item(self, item):
         if isinstance(item, str):
             item = Item(item)
         self.items.append(item)
+
+    def serialize(self):
+        return {"items": self.items,
+                "money": self.money}
+
+    def deserialize(self, data):
+        self.items = data["items"]
+        self.money = data["money"]
 
 
 class Player:
@@ -94,3 +103,24 @@ Location : {str(self.location)} ; Level {self.level} {str(self.job).capitalize()
         location = self.location.try_move_to(direction)
         if location is not None:
             self.location = location
+
+    def serialize(self):
+        data = {"job": self.job.name,
+                "experience": self.experience,
+                "health": self._health,
+                "mana": self._mana,
+                "position": self.position.tuple,
+                "status_effects": self.status_effects,
+                "inventory": self.inventory.serialize()
+                }
+        return data
+
+    def deserialize(self, data):
+        self.job = Job(data["job"])
+        self.experience = data["experience"]
+        self._health = data["health"]
+        self._mana = data["mana"]
+        self.location = self.game.map.get_location_from_position(data["position"])
+        self.status_effects = data["status_effects"]
+        self.inventory.deserialize(data["inventory"])
+        return

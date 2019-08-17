@@ -5,9 +5,8 @@ import sys
 
 
 class Map:
-    locations = []
-
     def __init__(self, game):
+        self.locations = []
         with open("data/map.json") as f:
             data = json.load(f)
         for location in data:
@@ -45,3 +44,12 @@ class Map:
         sys.stdout.write(loc12.map_icon)
         sys.stdout.write(loc22.map_icon)
         sys.stdout.write("\n")
+
+    def serialize(self):
+        data = [location.serialize() for location in self.locations]
+        return data
+
+    def deserialize(self, data):
+        for location, loc_data in zip(self.locations, data):
+            location.deserialize(loc_data)
+        return
