@@ -1,9 +1,19 @@
 {
   "goblin": {
-    "health": 1,
+    "level": 1,
     "attacks": {
       "sword": "1d6"
     },
-    "ac": 7
+    "ac": 7,
+    "xp_value": 50
+  },
+  "wolf": {
+    "level": 1,
+    "attacks": {
+      "maw": "1d6",
+      "claw": ["1d4", "bleeding"]
+    },
+    "ac": 9,
+    "xp_value": 30
   }
 }

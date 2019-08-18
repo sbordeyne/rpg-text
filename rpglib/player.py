@@ -1,6 +1,7 @@
 import json
 import random
 from .inventory_system import Inventory
+from .entity import Entity
 
 
 class Job:
@@ -110,19 +111,19 @@ class PlayerStats:
         return
 
 
-class Player:
+class Player(Entity):
     def __init__(self, game):
+        super().__init__()
         self.game = game
         self.name = None
         self._job = None
         self.experience = 0
         self._health = self.max_health
         self._mana = self.max_mana
-        self.status_effects = []
         self.location = self.game.map.get_location_from_position((0, 0))
         self.inventory = Inventory()
         self.stats = PlayerStats()
-        self.damage = ("hands", 0)
+        self.damage = ("hands", 0, None)
 
     @property
     def job(self):
@@ -176,10 +177,6 @@ class Player:
         return self.location.position
 
     @property
-    def is_dead(self):
-        return self.health <= 0
-
-    @property
     def ac(self):
         return 9 - self.inventory.equipped.get_total_ac()
 
@@ -204,9 +201,7 @@ Location : {str(self.location)} ; Level {self.level} {str(self.job).capitalize()
 
     def gain_experience(self, xp_value):
         self.experience += xp_value
-
-    def take_damage(self, amount):
-        self.health -= amount
+        self.status_effects = []
 
     def serialize(self):
         data = {"job": self.job.name,

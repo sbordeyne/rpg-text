@@ -1,0 +1,6 @@
+{
+  "bleeding": {
+    "timeout": 3,
+    "effect": "dmg:1d4"
+  }
+}
