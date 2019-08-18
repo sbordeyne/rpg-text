@@ -179,3 +179,44 @@ def clear_screen():
         os.system('cls')
     else:
         os.system('clear')
+
+
+class MaxLenList:
+    def __init__(self, maxlen, iterable=None):
+        if iterable is None:
+            iterable = [None] * maxlen
+        self.maxlen = maxlen
+        self.items = iterable
+        self.index = 0
+
+    def __iter__(self):
+        return self.items
+
+    def __getitem__(self, item):
+        if not isinstance(item, int):
+            raise IndexError
+
+        if item > self.maxlen:
+            raise IndexError
+
+        return self.items[item]
+
+    def __contains__(self, item):
+        return item in self.items
+
+    def append(self, item):
+        if self.index < len(self.items):
+            self.items[self.index] = item
+            self.index += 1
+            return
+        else:
+            self.items.append(item)
+            return self.items.pop(0)
+
+    def pop(self, index=None):
+        if index is None:
+            index = self.index
+        item = self.items[index]
+        self.items[index] = None
+        self.index -= 1
+        return item

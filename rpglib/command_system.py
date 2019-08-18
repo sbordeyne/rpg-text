@@ -26,7 +26,9 @@ class CommandSystem:
                          Command("info", self.info),
                          Command("save", self.game.save_system.save),
                          Command("load", self.game.save_system.load),
-                         Command("quit", self.game.quit)]
+                         Command("quit", self.game.quit),
+                         Command("equip", self.game.player.inventory.equip_item),
+                         Command("dequip", self.game.player.inventory.equipped.de_equip)]
         pass
 
     def parse(self, command):
