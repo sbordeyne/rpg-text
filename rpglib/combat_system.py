@@ -1,4 +1,4 @@
-from .utils import sanitized_input
+from .utils import sanitized_input, parse_dice_format
 import random
 import json
 
@@ -12,13 +12,14 @@ class Monster:
         self.max_health = sum([random.randint(1, 8) for i in range(self.level)])
         self.health = self.max_health
         self.ac = data.get("ac", 9)
-        self.attacks = data.get("attack", list(range(1, 7)))
+        self.attacks = data.get("attacks", {"normal": "1d6"})
         self.ac_modifier = data.get("ac_modifier", 0)
         self.hit_modifier = data.get("hit_modifier", 0)
 
     @property
     def damage(self):
-        return random.choice(self.attacks)
+        attack = random.choice(self.attacks.keys())
+        return attack, parse_dice_format(self.attacks[attack])
 
     def take_damage(self, amount):
         self.health -= amount
@@ -28,6 +29,7 @@ class CombatSystem:
     def __init__(self, game):
         self.game = game
         self.n_turns = 0
+        self.fleeing = False
 
     def start_combat(self, opponent):
         self.n_turns = 0
@@ -35,7 +37,7 @@ class CombatSystem:
             opponent = Monster(opponent)
         elif not isinstance(opponent, Monster):
             raise TypeError
-        
+
         while not self.is_combat_finished(opponent):
             self.n_turns += 1
             command = sanitized_input("> ", error_msg="Invalid Command!")
@@ -46,7 +48,7 @@ class CombatSystem:
         self.finish_combat(opponent)
 
     def is_combat_finished(self, opponent):
-        return opponent.is_dead or self.game.player.is_dead
+        return opponent.is_dead or self.game.player.is_dead or self.fleeing
 
     def combat_state(self, opponent):
         player = self.game.player
@@ -72,8 +74,8 @@ class CombatSystem:
     @classmethod
     def attack(cls, attacker, defender):
         if CombatSystem.get_hit(attacker, defender):
-            damage = attacker.damage
+            attack, damage = attacker.damage
             defender.take_damage(damage)
-            print(f"{attacker.name} attacked {defender.name} and hit for {damage}!")
+            print(f"{attacker.name} attacked {defender.name} with {attack} and hit for {damage}!")
         else:
-            print(f"{attacker.name} attacked {defender.name} and did not hit!")
+            print(f"{attacker.name} attacked {defender.name} with {attack} and did not hit!")

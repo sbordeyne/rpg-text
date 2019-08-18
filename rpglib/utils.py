@@ -2,6 +2,7 @@ import sys
 import time
 import math
 import os
+import random
 
 
 def display(text, delay=0.05):
@@ -220,3 +221,13 @@ class MaxLenList:
         self.items[index] = None
         self.index -= 1
         return item
+
+
+def parse_dice_format(dice_format):
+    dice_format = dice_format.replace(" ", "")
+    n_dice, rest = dice_format.split("d")
+    n_dice = int(n_dice) if n_dice else 1
+    n_faces, mod = rest.split("+")
+    n_faces = int(n_faces)
+    mod = int(mod)
+    return sum([random.randint(1, n_faces) for i in range(n_dice)]) + mod

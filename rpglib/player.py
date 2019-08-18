@@ -122,7 +122,7 @@ class Player:
         self.location = self.game.map.get_location_from_position((0, 0))
         self.inventory = Inventory()
         self.stats = PlayerStats()
-        self.damage = 0
+        self.damage = ("hands", 0)
 
     @property
     def job(self):

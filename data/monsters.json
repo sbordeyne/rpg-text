@@ -1,7 +1,9 @@
 {
   "goblin": {
     "health": 1,
-    "attack": [1, 2, 3, 4, 5, 6],
+    "attacks": {
+      "sword": "1d6"
+    },
     "ac": 7
   }
 }
