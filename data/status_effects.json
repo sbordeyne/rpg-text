@@ -2,5 +2,17 @@
   "bleeding": {
     "timeout": 3,
     "effect": "dmg:1d4"
+  },
+  "burning": {
+    "timeout": 4,
+    "effect": "dmg:1d2+1"
+  },
+  "frozen": {
+    "timeout": 5,
+    "effect": "dex:-2"
+  },
+  "rage": {
+    "timeout": 5,
+    "effect": ["str:+2", "dex:+2"]
   }
 }

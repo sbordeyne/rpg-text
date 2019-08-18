@@ -5,13 +5,14 @@ class Stat:
     def __init__(self, value=10):
         self._value = value
         self.stat_modifier = 0
+        self.temp_stat_modifier = 0
 
     def randomize(self):
         self._value = sum([random.randint(1, 6) for i in range(3)])
 
     @property
     def value(self):
-        return self._value + self.stat_modifier
+        return self._value + self.stat_modifier + self.temp_stat_modifier
 
     @property
     def modifier(self):
@@ -61,6 +62,8 @@ class Stat:
 
 
 class Stats:
+    stat_names = ["str", "dex", "int", "chr", "wis", "con"]
+
     def __init__(self):
         self.str = Stat()
         self.int = Stat()
@@ -68,6 +71,25 @@ class Stats:
         self.chr = Stat()
         self.con = Stat()
         self.wis = Stat()
+
+    def __getitem__(self, item):
+        if not isinstance(item, str):
+            raise TypeError
+
+        if item == "str":
+            return self.str
+        elif item == "int":
+            return self.int
+        elif item == "dex":
+            return self.dex
+        elif item == "chr":
+            return self.chr
+        elif item == "con":
+            return self.con
+        elif item == "wis":
+            return self.wis
+        else:
+            raise ValueError
 
     def randomize(self):
         self.str.randomize()
@@ -93,3 +115,11 @@ class Stats:
         self.con.deserialize(data["con"])
         self.wis.deserialize(data["wis"])
         return
+
+    def reset_temp_stats_modifiers(self):
+        self.str.temp_stat_modifier = 0
+        self.int.temp_stat_modifier = 0
+        self.dex.temp_stat_modifier = 0
+        self.chr.temp_stat_modifier = 0
+        self.con.temp_stat_modifier = 0
+        self.wis.temp_stat_modifier = 0

@@ -25,3 +25,4 @@ class Entity:
             status_effect.apply()
             if status_effect.reached_timeout:
                 self.status_effects.remove(status_effect)
+                status_effect.remove()

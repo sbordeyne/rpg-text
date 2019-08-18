@@ -107,7 +107,10 @@ Location : {str(self.location)} ; Level {self.level} {str(self.job).capitalize()
 
     def gain_experience(self, xp_value):
         self.experience += xp_value
+        for effect in self.status_effects:
+            effect.remove()
         self.status_effects = []
+        self.stats.reset_temp_stats_modifiers()
 
     def serialize(self):
         data = {"job": self.job.name,

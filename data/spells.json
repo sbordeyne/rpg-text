@@ -1,0 +1,24 @@
+{
+  "fireball": {
+    "type": "aoe/damage",
+    "damage": "lvl d6",
+    "effect": "burning",
+    "level": 2,
+    "job": "spellcaster",
+    "target": "opponent"
+  },
+  "icicle": {
+    "type": "st/damage",
+    "level": 2,
+    "job": "spellcaster",
+    "damage": "2d6",
+    "effect": "frozen",
+    "target": "opponent"
+  },
+  "rage": {
+    "level": 2,
+    "job": "warrior",
+    "type": "st/buff",
+    "effect": "rage"
+  }
+}
