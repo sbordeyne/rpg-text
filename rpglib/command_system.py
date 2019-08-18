@@ -25,7 +25,8 @@ class CommandSystem:
                          Command("help", self.help),
                          Command("info", self.info),
                          Command("save", self.game.save_system.save),
-                         Command("load", self.game.save_system.load)]
+                         Command("load", self.game.save_system.load),
+                         Command("quit", self.game.quit)]
         pass
 
     def parse(self, command):

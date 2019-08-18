@@ -33,8 +33,7 @@ class Game:
         elif choice.startswith("l"):
             self.load_game()
         elif choice.startswith("q"):
-            clear_screen()
-            sys.exit(1)
+            self.quit()
 
     def new_game(self):
         clear_screen()
@@ -58,6 +57,12 @@ class Game:
             print("Saves : " + ", ".join(found_saves))
         else:
             self.save_system.load(save_name)
+
+    def quit(self):
+        """Saves and quits the game. Save is named 'autosave'"""
+        self.save_system.save("autosave")
+        clear_screen()
+        sys.exit(1)
 
     def serialize(self):
         return {"n_turns": self.n_turns}
