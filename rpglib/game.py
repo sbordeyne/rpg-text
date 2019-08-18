@@ -13,7 +13,11 @@ class Game:
     def __init__(self):
         self.n_turns = 0
         self.screen_width = 80
+        self.map = Map(self)
+        self.player = Player(self)
+        self.character_system = CharacterSystem(self)
         self.save_system = SaveSystem(self)
+        self.command_system = CommandSystem(self)
 
     def next_turn(self):
         self.n_turns += 1
@@ -41,10 +45,8 @@ class Game:
         p_name = sanitized_input("> ", error_msg="")
         print("Please enter your desired job (commoner, spellcaster, warrior).")
         p_job = sanitized_input("> ", error_msg="Invalid job.", valid_input=('commoner', 'spellcaster', 'warrior'))
-        self.map = Map(self)
-        self.player = Player(self, p_name, p_job)
-        self.character_system = CharacterSystem(self)
-        self.command_system = CommandSystem(self)
+        self.player.name = p_name
+        self.player.job = p_job
 
     def load_game(self):
         clear_screen()

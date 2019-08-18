@@ -120,10 +120,10 @@ class PlayerStats:
 
 
 class Player:
-    def __init__(self, game, name, job_name='commoner"'):
+    def __init__(self, game):
         self.game = game
-        self.name = name
-        self.job = Job(job_name)
+        self.name = None
+        self._job = None
         self.experience = 0
         self._health = self.max_health
         self._mana = self.max_mana
@@ -131,6 +131,19 @@ class Player:
         self.location = self.game.map.get_location_from_position((0, 0))
         self.inventory = Inventory()
         self.stats = PlayerStats()
+
+    @property
+    def job(self):
+        return self._job
+
+    @job.setter
+    def job(self, value):
+        if isinstance(value, str):
+            self._job = Job(value)
+        elif isinstance(value, Job):
+            self._job = value
+        else:
+            raise ValueError
 
     @property
     def health(self):

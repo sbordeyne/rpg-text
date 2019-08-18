@@ -26,6 +26,16 @@ class SaveSystem:
 
     def load(self, save_name):
         """Loads saved game named $save_name"""
+        if not os.path.exists("saves"):
+            print("No saves found.")
+            return
+
+        with open(f"saves/{save_name}.json", "w") as save_file:
+            data = json.load(save_file)
+        self.game.deserialize(data["game"])
+        self.game.player.deserialize(data["player"])
+        self.game.map.deserialize(data["map"])
+        self.game.character_system.deserialize(data["characters"])
         pass
 
     @staticmethod
