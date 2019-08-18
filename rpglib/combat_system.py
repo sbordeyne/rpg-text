@@ -32,7 +32,10 @@ class CombatSystem:
     def start_combat(self, opponent):
         self.n_turns = 0
         if isinstance(opponent, str):
-            opponent = Monster(self.game, opponent)
+            opponent = Monster(opponent)
+        elif not isinstance(opponent, Monster):
+            raise TypeError
+        
         while not self.is_combat_finished(opponent):
             self.n_turns += 1
             command = sanitized_input("> ", error_msg="Invalid Command!")
