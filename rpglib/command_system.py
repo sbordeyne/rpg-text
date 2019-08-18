@@ -29,6 +29,8 @@ class CommandSystem:
                          Command("quit", self.game.quit),
                          Command("equip", self.game.player.inventory.equip_item),
                          Command("dequip", self.game.player.inventory.equipped.de_equip)]
+
+        self.combat_commands = [Command("help", self.help_combat)]
         pass
 
     def parse(self, command):
@@ -42,9 +44,25 @@ class CommandSystem:
                 return rv is None
         return False
 
+    def parse_combat(self, command):
+        cmd, *cmd_args = command.split()
+        for command in self.combat_commands:
+            if command == cmd:
+                try:
+                    rv = command(*cmd_args)
+                except TypeError:
+                    return False
+                return rv is None
+        return False
+
     def help(self):
         """Shows this message."""
         for command in self.commands:
+            print(f"{command.command} : {command.callback.__doc__}")
+
+    def help_combat(self):
+        """Shows this message"""
+        for command in self.combat_commands:
             print(f"{command.command} : {command.callback.__doc__}")
 
     def info(self, argument):

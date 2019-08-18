@@ -20,6 +20,10 @@ class Map:
                 return location
         return self.locations[0]
 
+    def remove_opponent(self, opponent):
+        loc = self.game.player.location
+        loc.remove_opponent(opponent)
+
     def display(self):
         """Shows the map."""
         loc00 = self.get_location_from_position(self.game.player.position + Vector2(-1, -1))

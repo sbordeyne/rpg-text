@@ -19,14 +19,33 @@ class Job:
 class Stat:
     def __init__(self, value=0):
         self._value = value
-        self.modifier = 0
+        self.stat_modifier = 0
 
     def randomize(self):
         self._value = sum([random.randint(1, 6) for i in range(3)])
 
     @property
     def value(self):
-        return self._value + self.modifier
+        return self._value + self.stat_modifier
+
+    @property
+    def modifier(self):
+        if self.value < 3:
+            return -3
+        elif 3 <= self.value < 6:
+            return -2
+        elif 6 <= self.value < 9:
+            return -1
+        elif 9 <= self.value < 11:
+            return 0
+        elif 11 <= self.value < 13:
+            return 1
+        elif 13 <= self.value < 16:
+            return 2
+        elif 16 <= self.value < 18:
+            return 3
+        else:
+            return 4
 
     def __ge__(self, other):
         return self.value >= int(other)
@@ -53,7 +72,7 @@ class Stat:
         return [self._value, self.modifier]
 
     def deserialize(self, data):
-        self._value, self.modifier = data
+        self._value, self.stat_modifier = data
 
 
 class PlayerStats:
@@ -103,6 +122,7 @@ class Player:
         self.location = self.game.map.get_location_from_position((0, 0))
         self.inventory = Inventory()
         self.stats = PlayerStats()
+        self.damage = 0
 
     @property
     def job(self):
@@ -155,6 +175,22 @@ class Player:
     def position(self):
         return self.location.position
 
+    @property
+    def is_dead(self):
+        return self.health <= 0
+
+    @property
+    def ac(self):
+        return 9 - self.inventory.equipped.get_total_ac()
+
+    @property
+    def ac_modifier(self):
+        return self.stats.dex.modifier
+
+    @property
+    def hit_modifier(self):
+        return max(self.stats.dex.modifier, self.stats.str.modifier)
+
     def __str__(self):
         return \
             f"""Player {self.name} ; {self.health}/{self.max_health} HP ; {self.mana}/{self.max_mana} MP
@@ -165,6 +201,12 @@ Location : {str(self.location)} ; Level {self.level} {str(self.job).capitalize()
         location = self.location.try_move_to(direction)
         if location is not None:
             self.location = location
+
+    def gain_experience(self, xp_value):
+        self.experience += xp_value
+
+    def take_damage(self, amount):
+        self.health -= amount
 
     def serialize(self):
         data = {"job": self.job.name,
