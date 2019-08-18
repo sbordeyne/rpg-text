@@ -1,5 +1,4 @@
 import json
-from .stats import Stats
 from .inventory_system import Inventory
 from .entity import Entity
 
@@ -28,7 +27,6 @@ class Player(Entity):
         self._mana = self.max_mana
         self.location = self.game.map.get_location_from_position((0, 0))
         self.inventory = Inventory()
-        self.stats = Stats()
         self.damage = ("hands", 0, None)
 
     @property

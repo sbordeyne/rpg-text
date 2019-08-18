@@ -1,10 +1,12 @@
 from .status_effect import StatusEffect
+from .stats import Stats
 
 
 class Entity:
     def __init__(self):
         self.status_effects = []
         self.health = 0
+        self.stats = Stats()
 
     @property
     def is_dead(self):
