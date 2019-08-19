@@ -5,6 +5,7 @@ from .utils import sanitized_input, clear_screen
 from .command_system import CommandSystem
 from .character_system import CharacterSystem
 from .treasure_system import TreasureSystem
+from .combat_system import CombatSystem
 from .player import Player
 from .map import Map
 from .saveload import SaveSystem
@@ -20,6 +21,7 @@ class Game:
         self.character_system = CharacterSystem(self)
         self.treasure_system = TreasureSystem(self)
         self.save_system = SaveSystem(self)
+        self.combat_system = CombatSystem(self)
         self.command_system = CommandSystem(self)
 
     def next_turn(self):

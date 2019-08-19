@@ -124,6 +124,27 @@ Location : {str(self.location)} ; Level {self.level} {str(self.job).capitalize()
         else:
             self.melee_attack()
 
+    def flee(self):
+        """Attempts to flee the fight."""
+        diff_level = self.game.combat_system.current_opponent.level - self.level
+        if diff_level > 5:
+            self.game.combat_system.fleeing = True
+            print("You fled the fight!")
+        elif -5 < diff_level < 5:
+            roll = parse_dice_format('1d10')
+            if roll >= (diff_level + 5):
+                self.game.combat_system.fleeing = True
+                print("You fled the fight!")
+            else:
+                print("You failed to flee the fight!")
+        else:
+            print("You cannot flee the fight!")
+        pass
+
+    def cast(self, spell, target=self):
+        """Casts $spell on $target. $target optional."""
+        pass
+
     def try_level_up(self):
         current_threshold = self.job.xp_threshold * self.level
         if self.experience >= current_threshold:

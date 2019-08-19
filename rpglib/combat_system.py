@@ -37,6 +37,7 @@ class CombatSystem:
         self.game = game
         self.n_turns = 0
         self.fleeing = False
+        self.current_opponent = None
 
     def start_combat(self, opponent):
         self.n_turns = 0
@@ -44,6 +45,8 @@ class CombatSystem:
             opponent = Monster(opponent)
         elif not isinstance(opponent, Monster):
             raise TypeError
+
+        self.current_opponent = opponent
 
         while not self.is_combat_finished(opponent):
             self.n_turns += 1
@@ -57,17 +60,19 @@ class CombatSystem:
 
         self.finish_combat(opponent)
 
-    def is_combat_finished(self, opponent):
-        return opponent.is_dead or self.game.player.is_dead or self.fleeing
+    def is_combat_finished(self):
+        return self.current_opponent.is_dead or self.game.player.is_dead or self.fleeing
 
-    def combat_state(self, opponent):
+    def combat_state(self):
+        opponent = self.current_opponent
         player = self.game.player
         opponent_status = f"{opponent.name} : {opponent.health}/{opponent.max_health} HP"
         player_status = f"{player.name} : {player.health}/{player.max_health} HP {player.mana}/{player.max_mana} MP"
         player_moves = " ".join([c.command for c in self.game.command_system.combat_commands])
         return "\n".join([opponent_status, player_status, player_moves])
 
-    def finish_combat(self, opponent):
+    def finish_combat(self):
+        opponent = self.current_opponent
         if self.game.player.is_dead:
             self.game.game_over()
         else:
