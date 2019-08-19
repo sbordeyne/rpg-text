@@ -20,6 +20,7 @@ class Monster(Entity):
         self.hit_modifier = data.get("hit_modifier", 0)
         self.xp_value = data.get("xp_value", 50)
         self.job = data.get("job", "warrior")
+        self.treasure = data.get("treasure", "none")
 
     @property
     def damage(self):

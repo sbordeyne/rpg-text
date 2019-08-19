@@ -1,0 +1,70 @@
+{
+  "gems": {
+    "1-20": ["quartz", "turquoise"],
+    "21-45": ["onyx"],
+    "46-75": ["amber", "garnet"],
+    "76-94": ["pearl", "topaz"],
+    "95-99": ["opal", "ruby"],
+    "100-100": ["diamond"]
+  },
+  "jewels": {
+    "1-25": ["bracelet"],
+    "26-50": ["broach"],
+    "51-75": ["necklace"],
+    "76-100": ["scepter", "crown"]
+  },
+  "items": {
+    "swords": {
+      "1-40": "sword-p1",
+      "41-50": "sword-p1-p2-lycans",
+      "51-55": "sword-p1-p2-spellcasters",
+      "56-65": "sword-p1-p3-undead",
+      "66-75": "sword-p1-p3-dragons",
+      "76-80": "sword-p1-light",
+      "81-95": "sword-p1-heal",
+      "96-99": "sword-p2",
+      "100-100": "sword-p3"
+    },
+    "other-weapons": {
+      "1-20": "arrow-p1:10",
+      "21-30": "axe-p1",
+      "31-45": "dagger-p1",
+      "46-50": "dagger-p2",
+      "51-65": "mace-p1",
+      "66-80": "bolt-p1:10",
+      "81-85": "sling-p1",
+      "86-100": "war_hammer-p1"
+    },
+    "armors": {
+      "1-20": "leather_chest-p1",
+      "21-45": "chain_mail-p1",
+      "46-55": "plate_mail-p1",
+      "56-85": "shield-p1",
+      "86-95": "shield-p2",
+      "96-00": "chain_mail-p2"
+    },
+    "potions": {
+      "1-20": "potion_diminution",
+      "21-30": "potion_esp",
+      "31-40": "potion_gaz_form",
+      "41-55": "potion_growth",
+      "56-75": "potion_heal",
+      "76-80": "potion_invisibility",
+      "81-95": "potion_levitation",
+      "96-100": "potion_poison"
+    },
+    "scrolls": {
+      "1-20": "scroll_scroll-1s",
+      "21-35": "scroll_scroll-2s",
+      "36-40": "scroll_scroll-3s",
+      "41-50": "scroll_curse",
+      "51-65": "scroll_protection_lycans",
+      "66-80": "scroll_protection_undead",
+      "81-90": "scroll_heal",
+      "91-100": "scroll_resurrection"
+    },
+    "rings": {},
+    "wands": {},
+    "other": {}
+  }
+}
