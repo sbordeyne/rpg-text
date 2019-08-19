@@ -25,6 +25,8 @@ class StatusEffect:
                 self.target.take_damage(parse_dice_format(effect_value))
             elif effect_type in Stats.stat_names:
                 self.target.stats[effect_type].temp_stat_modifier += int(effect_value)
+            elif effect_type == "heal":
+                self.target.heal(parse_dice_format(effect_value))
 
     @property
     def reached_timeout(self):

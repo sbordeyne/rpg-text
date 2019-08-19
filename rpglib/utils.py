@@ -3,6 +3,7 @@ import time
 import math
 import os
 import random
+import re
 
 
 def display(text, delay=0.05):
@@ -231,3 +232,10 @@ def parse_dice_format(dice_format):
     n_faces = int(n_faces)
     mod = int(mod)
     return sum([random.randint(1, n_faces) for i in range(n_dice)]) + mod
+
+
+def interpolate_brackets(string, **data):
+    for key, value in data.items():
+        pattern = '[' + key + ']'
+        re.sub(pattern, string)
+    return string

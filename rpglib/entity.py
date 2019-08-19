@@ -1,14 +1,17 @@
 from .status_effect import StatusEffect
 from .stats import Stats, Job
+from .spells import SpellList
 
 
 class Entity:
     def __init__(self):
         self.status_effects = []
-        self.health = 0
+        self.max_health = 10
+        self.health = self.max_health
         self.stats = Stats()
         self._job = None
         self.level = 1
+        self.spell_list = SpellList(self)
 
     @property
     def job(self):
@@ -48,3 +51,6 @@ class Entity:
             if status_effect.reached_timeout:
                 self.status_effects.remove(status_effect)
                 status_effect.remove()
+
+    def heal(self, amount):
+        self.health = min(self.health + amount, self.max_health)

@@ -147,6 +147,7 @@ Location : {str(self.location)} ; Level {self.level} {str(self.job).capitalize()
             target = self
         else:
             target = Monster(target)
+        self.spell_list.cast(spell, target)
         pass
 
     def try_level_up(self):

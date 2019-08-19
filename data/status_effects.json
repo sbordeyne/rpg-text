@@ -19,5 +19,9 @@
     "timeout": 10,
     "effect": "dmg:1d4",
     "saving_throw": "poison"
+  },
+  "minor-heal": {
+    "timeout": 1,
+    "effect": "heal:1d8"
   }
 }

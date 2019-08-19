@@ -2,23 +2,31 @@
   "fireball": {
     "type": "aoe/damage",
     "damage": "lvl d6",
-    "effect": "burning",
+    "effects": "burning",
     "level": 2,
     "job": "spellcaster",
-    "target": "opponent"
+    "description": "[caster] casted fireball on [target] and dealt [amount] damage!"
   },
   "icicle": {
     "type": "st/damage",
     "level": 2,
     "job": "spellcaster",
     "damage": "2d6",
-    "effect": "frozen",
-    "target": "opponent"
+    "effects": "frozen",
+    "description": "[caster] casted icicle on [target] and dealt [amount] damage!"
   },
   "rage": {
     "level": 2,
     "job": "warrior",
     "type": "st/buff",
-    "effect": "rage"
+    "effects": "rage",
+    "description": "[caster] used rage!"
+  },
+  "minor_healing": {
+    "level": 2,
+    "job": "cleric",
+    "type": "st/heal",
+    "damage": "lvl d4",
+    "description": "[caster] healed [target] for [amount]!"
   }
 }
