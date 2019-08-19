@@ -1,7 +1,7 @@
 from .inventory_system import Inventory
 from .entity import Entity
 from .utils import parse_dice_format
-from copy import copy
+from .combat_system import Monster
 
 
 class Player(Entity):
@@ -141,8 +141,12 @@ Location : {str(self.location)} ; Level {self.level} {str(self.job).capitalize()
             print("You cannot flee the fight!")
         pass
 
-    def cast(self, spell, target=self):
+    def cast(self, spell, target=None):
         """Casts $spell on $target. $target optional."""
+        if target is None or target in ("self", "player"):
+            target = self
+        else:
+            target = Monster(target)
         pass
 
     def try_level_up(self):
