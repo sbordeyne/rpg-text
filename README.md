@@ -11,7 +11,7 @@ The entry point is the `main.py` file, in the root directory of the project.
 
 # Planned features:
 
-- [ ] Spellcasting system
+- [x] Spellcasting system
 - [ ] Talk to NPCs around the world
 - [x] Combat system
 - [x] Status effects system
