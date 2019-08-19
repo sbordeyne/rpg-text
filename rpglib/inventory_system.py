@@ -1,15 +1,5 @@
-import json
 from .utils import MaxLenList
-
-
-class Item:
-    def __init__(self, name):
-        self.name = name
-        with open("data/items.json") as f:
-            self.set_attributes(json.load(f))
-
-    def set_attributes(self, obj):
-        pass
+from .item import Item
 
 
 class MoneyInventory:
@@ -40,6 +30,22 @@ class MoneyInventory:
             "crown": 0,
             "scepter": 0,
         }
+
+    def __getitem__(self, item):
+        if not isinstance(item, str):
+            raise TypeError
+
+        if item == "coins":
+            return self.coins
+
+        elif item == "gems":
+            return self.gems
+
+        elif item == "jewels":
+            return self.jewels
+
+        else:
+            raise ValueError
 
     @property
     def coin_value(self):
@@ -107,6 +113,15 @@ class MoneyInventory:
 
     def get_coins(self, coin_name, coin_amount=1):
         self.coins[coin_name] += coin_amount
+
+    def update(self, key, value):
+        if key == "coins":
+            for coin_type, coin_amount in value.items():
+                self.get_coins(coin_type, coin_amount)
+        elif key == "jewels":
+            self.get_jewel(*value)
+        elif key == "gems":
+            self.get_gem(*value)
 
 
 

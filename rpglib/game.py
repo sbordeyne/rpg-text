@@ -1,9 +1,10 @@
 import sys
 from copy import copy
 
-from .utils import sanitized_input, display, clear_screen
+from .utils import sanitized_input, clear_screen
 from .command_system import CommandSystem
 from .character_system import CharacterSystem
+from .treasure_system import TreasureSystem
 from .player import Player
 from .map import Map
 from .saveload import SaveSystem
@@ -17,6 +18,7 @@ class Game:
         self.map = Map(self)
         self.player = Player(self)
         self.character_system = CharacterSystem(self)
+        self.treasure_system = TreasureSystem(self)
         self.save_system = SaveSystem(self)
         self.command_system = CommandSystem(self)
 
