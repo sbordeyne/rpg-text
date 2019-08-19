@@ -23,3 +23,16 @@ The entry point is the `main.py` file, in the root directory of the project.
 - [x] Command system
 - [x] Treasure system
 - [x] Monetary system
+- [x] Leveling system
+- [ ] Shops (buy/sell items)
+
+# TODO:
+
+- AOE for spells
+- groups of monsters (not just single monsters)
+- map building
+- implementing all the treasure types
+- implementing more spells
+- implementing more status effects
+- implement items
+- implement NPC dialogues
