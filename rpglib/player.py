@@ -1,6 +1,7 @@
 from .inventory_system import Inventory
 from .entity import Entity
 from .utils import parse_dice_format
+from copy import copy
 
 
 class Player(Entity):
@@ -81,6 +82,47 @@ class Player(Entity):
         return \
             f"""Player {self.name} ; {self.health}/{self.max_health} HP ; {self.mana}/{self.max_mana} MP
 Location : {str(self.location)} ; Level {self.level} {str(self.job).capitalize()}"""
+
+    def melee_attack(self):
+        default = ["hands", parse_dice_format("1d4"), []]
+        weapon = self.inventory.equipped.r_hand
+        if weapon is not None:
+            default[0] = self.inventory.equipped.r_hand.name
+            default[1] = parse_dice_format(weapon.damage) + self.stats.str.modifier
+        if weapon.effects_on_hit:
+            default[2].extend(weapon.effects_on_hit)
+        self.damage = default
+
+    def ranged_attack(self):
+        default = ["hands", parse_dice_format("1d4"), []]
+        weapon = self.inventory.equipped.r_hand
+        ammunition = self.inventory.equipped.l_hand
+        if weapon is not None and self.inventory.has_item(weapon.ammunition_type):
+            default[0] = weapon.name
+            default[1] = parse_dice_format(weapon.damage) + self.stats.dex.modifier + ammunition.damage_modifier
+        elif weapon is not None:
+            print(f"{self.name} tried to attack with {weapon.name} but did not have enough ammo!")
+            self.damage = ("", 0, [])
+            return
+        elif weapon is None:
+            print(f"{self.name} has no ranged weapon equipped")
+            self.damage = ("", 0, [])
+            return
+        if weapon.effects_on_hit:
+            default[2].extend(weapon.effects_on_hit)
+        if ammunition.effects_on_hit:
+            default[2].extend(ammunition.effects_on_hit)
+        self.damage = default
+
+    def attack(self):
+        """Performs an attack."""
+        weapon = self.inventory.equipped.r_hand
+        if weapon is None:
+            self.melee_attack()
+        elif weapon.weapon_type == "ranged":
+            self.ranged_attack()
+        else:
+            self.melee_attack()
 
     def try_level_up(self):
         current_threshold = self.job.xp_threshold * self.level

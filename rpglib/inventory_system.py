@@ -1,6 +1,6 @@
 from .utils import MaxLenList
 from .item import Item
-
+from collections import defaultdict
 
 class MoneyInventory:
     def __init__(self):
@@ -124,7 +124,6 @@ class MoneyInventory:
             self.get_gem(*value)
 
 
-
 class EquipmentInventory:
     def __init__(self, inventory):
         self.inventory = inventory
@@ -209,19 +208,26 @@ class EquipmentInventory:
 
 class Inventory:
     def __init__(self):
-        self.items = []
+        self.items = defaultdict(int)
         self.equipped = EquipmentInventory()
         self.money = MoneyInventory()
 
     def get_item(self, item):
         if isinstance(item, Item):
             item = item.name
-        self.items.append(item)
+        self.items[item] += 1
 
     def remove_item(self, item):
         if isinstance(item, Item):
             item = item.name
-        self.items.remove(item)
+        self.items[item] -= 1
+        if self.items[item] == 0:
+            del self.items[item]
+
+    def has_item(self, item):
+        if isinstance(item, Item):
+            item = item.name
+        return item in self.items and self.items[item] > 0
 
     def serialize(self):
         return {"items": self.items,
