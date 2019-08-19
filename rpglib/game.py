@@ -7,6 +7,7 @@ from .character_system import CharacterSystem
 from .player import Player
 from .map import Map
 from .saveload import SaveSystem
+from .utils import parse_dice_format
 
 
 class Game:
@@ -43,10 +44,12 @@ class Game:
         clear_screen()
         print("Please enter your character's name.")
         p_name = sanitized_input("> ", error_msg="")
-        print("Please enter your desired job (commoner, spellcaster, warrior).")
-        p_job = sanitized_input("> ", error_msg="Invalid job.", valid_input=('commoner', 'spellcaster', 'warrior'))
+        print("Please enter your desired job (thief, wizard, warrior, cleric).")
+        p_job = sanitized_input("> ", error_msg="Invalid job.", valid_input=("thief", "wizard", "warrior", "cleric"))
         self.player.name = p_name
         self.player.job = p_job
+        self.player.health_rolls.append(parse_dice_format(self.player.job.hp_die))
+        self.player.mana_rolls.append(parse_dice_format(self.player.job.mp_die))
 
     def load_game(self):
         clear_screen()

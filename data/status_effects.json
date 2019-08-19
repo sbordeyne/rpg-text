@@ -14,5 +14,10 @@
   "rage": {
     "timeout": 5,
     "effect": ["str:+2", "dex:+2"]
+  },
+  "poison": {
+    "timeout": 10,
+    "effect": "dmg:1d4",
+    "saving_throw": "poison"
   }
 }

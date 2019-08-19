@@ -19,6 +19,7 @@ class Monster(Entity):
         self.ac_modifier = data.get("ac_modifier", 0)
         self.hit_modifier = data.get("hit_modifier", 0)
         self.xp_value = data.get("xp_value", 50)
+        self.job = data.get("job", "warrior")
 
     @property
     def damage(self):
@@ -69,7 +70,7 @@ class CombatSystem:
         if self.game.player.is_dead:
             self.game.game_over()
         else:
-            self.game.player.gain_experience(opponent.xp_value)
+            self.game.player.end_combat(opponent.xp_value)
             self.game.map.remove_opponent(opponent)
 
     @classmethod

@@ -1,5 +1,5 @@
 from .status_effect import StatusEffect
-from .stats import Stats
+from .stats import Stats, Job
 
 
 class Entity:
@@ -7,6 +7,26 @@ class Entity:
         self.status_effects = []
         self.health = 0
         self.stats = Stats()
+        self._job = None
+        self.level = 1
+
+    @property
+    def job(self):
+        return self._job if self._job is not None else Job(self, "commoner")
+
+    @job.setter
+    def job(self, value):
+        if isinstance(value, str):
+            self._job = Job(self, value)
+        elif isinstance(value, Job):
+            value.character = self
+            self._job = value
+        else:
+            raise ValueError
+
+    @property
+    def saving_throws(self):
+        return self.job.saving_throws
 
     @property
     def is_dead(self):

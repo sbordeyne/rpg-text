@@ -1,4 +1,55 @@
 {
+  "giant_bee": {
+    "level": 1,
+    "attacks": {
+      "sting": ["1d3", "poison"]
+    },
+    "ac": 7,
+    "job": "warrior",
+    "treasure": "giant_bee_special",
+    "xp_value": 6
+  },
+  "crab_spider": {
+    "ac": 7,
+    "level": 2,
+    "attacks": {
+      "bite": ["1d8", "poison"]
+    },
+    "job": "warrior",
+    "treasure": "U",
+    "xp_value": 25
+  },
+  "black_widow": {
+    "ac": 6,
+    "level": 3,
+    "attacks": {
+      "bite": ["2d6", "poison"]
+    },
+    "job": "warrior",
+    "treasure": "U",
+    "xp_value": 50
+  },
+  "tarantula": {
+    "ac": 5,
+    "level": 4,
+    "attacks": {
+      "bite": ["1d8", "poison"]
+    },
+    "job": "warrior",
+    "treasure": "U",
+    "xp_value": 125
+  },
+  "rock_baboon": {
+    "ac": 6,
+    "level": 2,
+    "attacks": {
+      "club": "1d6",
+      "bite": "1d3"
+    },
+    "job": "warrior",
+    "treasure": "U",
+    "xp_value": 20
+  },
   "goblin": {
     "level": 1,
     "attacks": {

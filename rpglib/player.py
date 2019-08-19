@@ -1,19 +1,6 @@
-import json
 from .inventory_system import Inventory
 from .entity import Entity
-
-
-class Job:
-    def __init__(self, job_name='commoner'):
-        with open("data/jobs.json") as f:
-            data = json.load(f)
-        self.name = job_name
-        self.hp_multiplier = data[job_name]['hp_multiplier']
-        self.mp_multiplier = data[job_name]['mp_multiplier']
-        self.xp_threshold = data[job_name]['xp_threshold']
-
-    def __str__(self):
-        return self.name
+from .utils import parse_dice_format
 
 
 class Player(Entity):
@@ -28,19 +15,9 @@ class Player(Entity):
         self.location = self.game.map.get_location_from_position((0, 0))
         self.inventory = Inventory()
         self.damage = ("hands", 0, None)
-
-    @property
-    def job(self):
-        return self._job
-
-    @job.setter
-    def job(self, value):
-        if isinstance(value, str):
-            self._job = Job(value)
-        elif isinstance(value, Job):
-            self._job = value
-        else:
-            raise ValueError
+        self.level = 1
+        self.health_rolls = []
+        self.mana_rolls = []
 
     @property
     def health(self):
@@ -52,7 +29,7 @@ class Player(Entity):
 
     @property
     def max_health(self):
-        return self.level * self.job.hp_multiplier
+        return sum(self.health_rolls)
 
     @property
     def mana(self):
@@ -64,17 +41,7 @@ class Player(Entity):
 
     @property
     def max_mana(self):
-        return self.level * self.job.mp_multiplier
-
-    @property
-    def level(self):
-        THRESHOLD = self.job.xp_threshold  # XP points to first level
-        i = 1
-        current_threshold = THRESHOLD
-        while self.experience > current_threshold:
-            i += 1
-            current_threshold += THRESHOLD * i
-        return i
+        return sum(self.mana_rolls)
 
     @property
     def position(self):
@@ -92,10 +59,35 @@ class Player(Entity):
     def hit_modifier(self):
         return max(self.stats.dex.modifier, self.stats.str.modifier)
 
+    @property
+    def xp_bonus(self):
+        pstat_value = self.stats[self.job.primary_stat].value
+        if pstat_value < 3:
+            return -0.3
+        elif 3 <= pstat_value < 6:
+            return -0.2
+        elif 6 <= pstat_value < 9:
+            return -0.1
+        elif 9 <= pstat_value < 13:
+            return 0
+        elif 13 <= pstat_value < 16:
+            return 0.05
+        elif 16 <= pstat_value < 19:
+            return 0.1
+        else:
+            return 0.2
+
     def __str__(self):
         return \
             f"""Player {self.name} ; {self.health}/{self.max_health} HP ; {self.mana}/{self.max_mana} MP
 Location : {str(self.location)} ; Level {self.level} {str(self.job).capitalize()}"""
+
+    def try_level_up(self):
+        current_threshold = self.job.xp_threshold * self.level
+        if self.experience >= current_threshold:
+            self.level += 1
+            self.health_rolls.append(parse_dice_format(self.job.hp_die))
+            self.mana_rolls.append(parse_dice_format(self.job.mp_die))
 
     def move(self, direction):
         """Moves the player in $direction (n, s, w, e)"""
@@ -104,7 +96,11 @@ Location : {str(self.location)} ; Level {self.level} {str(self.job).capitalize()
             self.location = location
 
     def gain_experience(self, xp_value):
-        self.experience += xp_value
+        self.experience += xp_value * (1 + self.xp_bonus)
+        self.try_level_up()
+
+    def end_combat(self, xp_value):
+        self.gain_experience(xp_value)
         for effect in self.status_effects:
             effect.remove()
         self.status_effects = []
@@ -119,11 +115,13 @@ Location : {str(self.location)} ; Level {self.level} {str(self.job).capitalize()
                 "status_effects": self.status_effects,
                 "inventory": self.inventory.serialize(),
                 "stats": self.stats.serialize(),
+                "health_rolls" : self.health_rolls,
+                "mana_rolls": self.mana_rolls,
                 }
         return data
 
     def deserialize(self, data):
-        self.job = Job(data["job"])
+        self.job = data["job"]
         self.experience = data["experience"]
         self._health = data["health"]
         self._mana = data["mana"]
@@ -131,4 +129,6 @@ Location : {str(self.location)} ; Level {self.level} {str(self.job).capitalize()
         self.status_effects = data["status_effects"]
         self.inventory.deserialize(data["inventory"])
         self.stats.deserialize(data["stats"])
+        self.health_rolls = data["health_rolls"]
+        self.mana_rolls = data["mana_rolls"]
         return

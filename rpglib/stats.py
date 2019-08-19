@@ -1,4 +1,5 @@
 import random
+import json
 
 
 class Stat:
@@ -123,3 +124,73 @@ class Stats:
         self.chr.temp_stat_modifier = 0
         self.con.temp_stat_modifier = 0
         self.wis.temp_stat_modifier = 0
+
+
+class SavingThrows:
+    saving_throws_names = ["poison", "wands", "paralysis", "breath", "spells"]
+
+    def __init__(self, character, data):
+        self.character = character
+        self._poison = data.get("poison", 10)
+        self._wands = data.get("wands", 10)
+        self._paralysis = data.get("paralysis", 10)
+        self._breath = data.get("breath", 10)
+        self._spells = data.get("spells", 10)
+
+    def __getitem__(self, item):
+        if not isinstance(item, str):
+            raise TypeError
+
+        item = item.lower()
+        if item == "poison":
+            return self.poison
+        elif item == "wands":
+            return self.wands
+        elif item == "paralysis":
+            return self.paralysis
+        elif item == "breath":
+            return self.breath
+        elif item == "spells":
+            return self.spells
+        else:
+            raise ValueError
+
+    @property
+    def _level(self):
+        return min(self.character.level, 15)
+
+    @property
+    def poison(self):
+        return self._poison - (self._level // 4) * 2 - self.character.stats.wis.modifier
+
+    @property
+    def wands(self):
+        return self._wands - (self._level // 4) * 2 - self.character.stats.wis.modifier
+
+    @property
+    def paralysis(self):
+        return self._paralysis - (self._level // 4) * 2 - self.character.stats.wis.modifier
+
+    @property
+    def breath(self):
+        return self._breath - (self._level // 4) * 2 - self.character.stats.wis.modifier
+
+    @property
+    def spells(self):
+        return self._spells - (self._level // 4) * 2 - self.character.stats.wis.modifier
+
+
+class Job:
+    def __init__(self, character, job_name='commoner'):
+        self.character = character
+        with open("data/jobs.json") as f:
+            data = json.load(f)
+        self.name = job_name
+        self.hp_die = data[job_name]['hp_die']
+        self.mp_die = data[job_name]['mp_die']
+        self.xp_threshold = data[job_name]['xp_threshold']
+        self.saving_throws = SavingThrows(character, data[job_name]["saving_throws"])
+        self.primary_stat = data[job_name]["primary_stat"]
+
+    def __str__(self):
+        return self.name
