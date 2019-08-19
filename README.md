@@ -17,7 +17,9 @@ The entry point is the `main.py` file, in the root directory of the project.
 - [x] Status effects system
 - [ ] Quests system
 - [x] Saving and Loading the game
-- [ ] Class/Race system
+- [x] Class/Race system
 - [x] Inventory system
 - [x] Stat checks, and modifiers
 - [x] Command system
+- [x] Treasure system
+- [x] Monetary system
