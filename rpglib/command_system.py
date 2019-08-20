@@ -28,7 +28,8 @@ class CommandSystem:
                          Command("load", self.game.save_system.load),
                          Command("quit", self.game.quit),
                          Command("equip", self.game.player.inventory.equip_item),
-                         Command("dequip", self.game.player.inventory.equipped.de_equip)]
+                         Command("dequip", self.game.player.inventory.equipped.de_equip),
+                         Command("rest", self.game.player.rest)]
 
         self.combat_commands = [Command("help", self.help_combat),
                                 Command("flee", self.game.player.flee),
@@ -69,7 +70,7 @@ class CommandSystem:
             print(f"{command.command} : {command.callback.__doc__}")
 
     def info(self, argument):
-        """Gets information about $argument (location, player, npc)"""
+        """Gets information about $argument (location, player, npc, time)"""
         arg = argument.lower()
         if arg == "player":
             print(str(self.game.player))
@@ -77,5 +78,7 @@ class CommandSystem:
             print(self.game.player.location.info())
         elif arg == "npc":
             print(self.game.character_system.info())
+        elif arg == "time":
+            print(self.game.timer.date)
         else:
             return False

@@ -16,7 +16,7 @@ class SaveSystem:
         if not os.path.exists("saves"):
             os.mkdir("saves")
 
-        data = {"game": self.game.serialize(),
+        data = {"timer": self.game.timer.serialize(),
                 "player": self.game.player.serialize(),
                 "map": self.game.map.serialize(),
                 "characters": self.game.character_system.serialize()}
@@ -32,7 +32,7 @@ class SaveSystem:
 
         with open(f"saves/{save_name}.json", "w") as save_file:
             data = json.load(save_file)
-        self.game.deserialize(data["game"])
+        self.game.timer.deserialize(data["timer"])
         self.game.player.deserialize(data["player"])
         self.game.map.deserialize(data["map"])
         self.game.character_system.deserialize(data["characters"])

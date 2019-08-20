@@ -12,6 +12,7 @@ class Spell:
         self.job = spelldata["job"]
         self.effects = list(spelldata.get("effects", []))
         self.description = spelldata.get("description", None)
+        self.cost = spelldata.get("cost", 5)
 
     def damage(self, caster):
         roll = self.damage_roll
@@ -20,7 +21,7 @@ class Spell:
         return parse_dice_format(roll) + caster.stats.int.modifier
 
     def cast(self, caster, target):
-        if caster.job.name == self.job:
+        if caster.job.name == self.job and caster.mana >= self.cost:
             amount = 0
             if self.type == "damage":
                 amount = self.damage(caster)
@@ -33,7 +34,10 @@ class Spell:
             elif self.type == "buff":
                 target.apply_status_effects(*self.effects)
 
+            caster.mana -= self.cost
             self.display_description(caster, target, amount)
+        elif caster.mana < self.cost:
+            print("You don't have enough mana to cast this spell.")
         else:
             print(f"This spelled can't be casted by {caster.job.name.capitalize()}s!")
 

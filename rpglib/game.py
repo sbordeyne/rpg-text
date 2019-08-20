@@ -6,6 +6,7 @@ from .command_system import CommandSystem
 from .character_system import CharacterSystem
 from .treasure_system import TreasureSystem
 from .combat_system import CombatSystem
+from .game_timer import GameTimer
 from .player import Player
 from .map import Map
 from .saveload import SaveSystem
@@ -14,10 +15,10 @@ from .utils import parse_dice_format
 
 class Game:
     def __init__(self):
-        self.n_turns = 0
         self.screen_width = 80
         self.map = Map(self)
         self.player = Player(self)
+        self.timer = GameTimer(self)
         self.character_system = CharacterSystem(self)
         self.treasure_system = TreasureSystem(self)
         self.save_system = SaveSystem(self)
@@ -25,7 +26,7 @@ class Game:
         self.command_system = CommandSystem(self)
 
     def next_turn(self):
-        self.n_turns += 1
+        self.timer.tick()
         command = sanitized_input("> ", error_msg="Invalid Command!")
         while not self.command_system.parse(command):
             print("Invalid command. Type 'help' for help.")
@@ -72,10 +73,3 @@ class Game:
         self.save_system.save("autosave")
         clear_screen()
         sys.exit(1)
-
-    def serialize(self):
-        return {"n_turns": self.n_turns}
-
-    def deserialize(self, data):
-        self.n_turns = data["n_turns"]
-        return

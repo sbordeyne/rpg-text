@@ -159,6 +159,9 @@ Location : {str(self.location)} ; Level {self.level} {str(self.job).capitalize()
             self.health_rolls.append(parse_dice_format(self.job.hp_die))
             self.mana_rolls.append(parse_dice_format(self.job.mp_die))
 
+    def rest(self, time="8"):
+        pass
+
     def move(self, direction):
         """Moves the player in $direction (n, s, w, e)"""
         location = self.location.try_move_to(direction)
