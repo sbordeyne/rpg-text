@@ -2,6 +2,7 @@ from .inventory_system import Inventory
 from .entity import Entity
 from .utils import parse_dice_format
 from .combat_system import Monster
+from .quest_system import QuestLog
 
 
 class Player(Entity):
@@ -19,6 +20,7 @@ class Player(Entity):
         self.level = 1
         self.health_rolls = []
         self.mana_rolls = []
+        self.quest_log = QuestLog()
 
     @property
     def health(self):
@@ -185,7 +187,8 @@ Location : {str(self.location)} ; Level {self.level} {str(self.job).capitalize()
                 "stats": self.stats.serialize(),
                 "health_rolls" : self.health_rolls,
                 "mana_rolls": self.mana_rolls,
-                }
+                "quest_log": self.quest_log.serialize(),
+            }
         return data
 
     def deserialize(self, data):
@@ -199,4 +202,5 @@ Location : {str(self.location)} ; Level {self.level} {str(self.job).capitalize()
         self.stats.deserialize(data["stats"])
         self.health_rolls = data["health_rolls"]
         self.mana_rolls = data["mana_rolls"]
+        self.quest_log.deserialize(data["quest_log"])
         return

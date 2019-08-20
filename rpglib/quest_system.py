@@ -62,3 +62,9 @@ class QuestLog:
 
     def is_quest_completed(self, quest_name):
         return quest_name in [q.name for q in self.completed_quests]
+
+    def serialize(self):
+        return {}
+
+    def deserialize(self, data):
+        return
