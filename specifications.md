@@ -12,6 +12,7 @@ sign will subtract the modifier from the result.
 
 `Z` is optional. If omitted, `Z` will default to 0.
 
+Additionally, you can add a `D` modifier to drop the lowest n rolls.
 
 # Treasure Formatting:
 

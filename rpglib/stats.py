@@ -1,5 +1,5 @@
-import random
 import json
+from .utils import parse_dice_format
 
 
 class Stat:
@@ -9,7 +9,7 @@ class Stat:
         self.temp_stat_modifier = 0
 
     def randomize(self):
-        self._value = sum([random.randint(1, 6) for i in range(3)])
+        self._value = parse_dice_format("4d6D1")
 
     @property
     def value(self):
@@ -55,6 +55,9 @@ class Stat:
     def __int__(self):
         return int(self.value)
 
+    def recall(self, value):
+        self._value = value
+
     def serialize(self):
         return [self._value, self.modifier]
 
@@ -91,6 +94,23 @@ class Stats:
             return self.wis
         else:
             raise ValueError
+
+    def __str__(self):
+        return " ; ".join([f"{stat_name.upper()}: {stat_value}" for stat_name, stat_value in self.as_dict])
+
+    @property
+    def as_dict(self):
+        return {"str": self.str.value,
+                "int": self.int.value,
+                "dex": self.dex.value,
+                "chr": self.chr.value,
+                "con": self.con.value,
+                "wis": self.wis.value}
+
+    def recall_stats(self, data):
+        for k, v in self.__dict__.items():
+            if isinstance(v, Stat):
+                v.recall(data[k])
 
     def randomize(self):
         self.str.randomize()

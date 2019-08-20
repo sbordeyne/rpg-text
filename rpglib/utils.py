@@ -228,24 +228,27 @@ def parse_dice_format(dice_format):
     dice_format = dice_format.replace(" ", "")
     n_dice, rest = dice_format.split("d")
     n_dice = int(n_dice) if n_dice else 1
+    if "D" in rest:
+        rest, drop = rest.split("D")
+        drop = int(drop)
+    else:
+        drop = 0
 
     if "+" in dice_format:
         n_faces, mod = rest.split("+")
-        mod = -int(mod)
-        n_faces = int(n_faces)
-        return sum([random.randint(1, n_faces) for i in range(n_dice)]) + mod
-
+        mod = int(mod)
     elif "-" in dice_format:
         n_faces, mod = rest.split("-")
-        mod = int(mod)
-        n_faces = int(n_faces)
-        return sum([random.randint(1, n_faces) for i in range(n_dice)]) - mod
-
+        mod = - int(mod)
     else:
         n_faces = rest
-        n_faces = int(n_faces)
-        return sum([random.randint(1, n_faces) for i in range(n_dice)])
+        mod = 0
 
+    n_faces = int(n_faces)
+    rolls = [random.randint(1, n_faces) for i in range(n_dice)]
+    rolls = list(sorted(rolls))
+    rolls = rolls[drop:]
+    return sum(rolls) + mod
 
 def interpolate_brackets(string, **data):
     for key, value in data.items():

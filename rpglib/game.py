@@ -11,6 +11,7 @@ from .player import Player
 from .map import Map
 from .saveload import SaveSystem
 from .utils import parse_dice_format
+from .stats import Stats
 
 
 class Game:
@@ -53,8 +54,39 @@ class Game:
         p_job = sanitized_input("> ", error_msg="Invalid job.", valid_input=("thief", "wizard", "warrior", "cleric"))
         self.player.name = p_name
         self.player.job = p_job
+        satisfied_rolls = False
+        saved_health = [2]
+        saved_mana = [2]
+        saved_stats = {k: 9 for k in Stats.stat_names}
         self.player.health_rolls.append(parse_dice_format(self.player.job.hp_die))
         self.player.mana_rolls.append(parse_dice_format(self.player.job.mp_die))
+        self.player.stats.randomize()
+        while not satisfied_rolls:
+            print(f"HP : {self.player.health_rolls[0]} ; MP : {self.player.mana_rolls[0]} ; {str(self.player.stats)}")
+            print(f"Sum : {sum(self.player.stats.as_dict.values())}")
+            print("Are you satisfied with these stats?")
+            print("Please enter 'yes', 'no', 'reroll', 'save', 'recall' or 'info'")
+            p_cmd = sanitized_input('> ', error_msg="Invalid command.",
+                                    valid_input=('yes', 'no', 'reroll', 'recall', 'save', 'info'))
+            if p_cmd == 'yes':
+                satisfied_rolls = True
+            elif p_cmd in ('no', 'reroll'):
+                self.player.health_rolls.append(parse_dice_format(self.player.job.hp_die))
+                self.player.mana_rolls.append(parse_dice_format(self.player.job.mp_die))
+                self.player.stats.randomize()
+            elif p_cmd == 'save':
+                saved_health = copy(self.player.health_rolls)
+                saved_mana = copy(self.player.mana_rolls)
+                saved_stats = self.player.stats.as_dict
+                self.player.health_rolls.append(parse_dice_format(self.player.job.hp_die))
+                self.player.mana_rolls.append(parse_dice_format(self.player.job.mp_die))
+                self.player.stats.randomize()
+            elif p_cmd == 'recall':
+                self.player.health_rolls = copy(saved_health)
+                self.player.mana_rolls = copy(saved_mana)
+                self.player.stats.recall_stats(saved_stats)
+            elif p_cmd == 'info':
+                pass
 
     def load_game(self):
         clear_screen()
