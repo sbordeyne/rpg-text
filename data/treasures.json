@@ -1,5 +1,6 @@
 {
   "A": {
+    "thousands": true,
     "coins": {
       "cc": ["25%", "1d6"],
       "sc": ["30%", "1d6"],
@@ -13,6 +14,7 @@
     "average_value": 17000
   },
   "B": {
+    "thousands": true,
     "coins": {
       "cc": ["50%", "1d8"],
       "sc": ["25%", "1d6"],
@@ -22,10 +24,11 @@
     },
     "gems": ["25%", "1d6"],
     "jewels": ["25%", "1d6"],
-    "items": ["10%", ["weapon"]],
+    "items": ["10%", ["other-weapons/swords/armors"]],
     "average_value": 2000
   },
   "C": {
+    "thousands": true,
     "coins": {
       "cc": ["20%", "1d12"],
       "sc": ["30%", "1d4"],
@@ -39,6 +42,49 @@
     "average_value": 750
   },
   "D": {
+    "thousands": true,
+    "coins": {
+      "cc": ["10%", "1d8"],
+      "sc": ["15%", "1d10"],
+      "ec": ["0%", ""],
+      "gc": ["60%", "1d6"],
+      "pc": ["0%", ""]
+    },
+    "gems": ["30%", "1d8"],
+    "jewels": ["30%", "1d8"],
+    "items": ["15%", ["potions", "random", "random"]],
+    "average_value": 4000
+  },
+  "E": {
+    "thousands": true,
+    "coins": {
+      "cc": ["5%", "1d10"],
+      "sc": ["30%", "1d12"],
+      "ec": ["25%", "1d4"],
+      "gc": ["25%", "1d8"],
+      "pc": ["0%", ""]
+    },
+    "gems": ["10%", "1d10"],
+    "jewels": ["10%", "1d10"],
+    "items": ["25%", ["random", "random", "random", "scrolls"]],
+    "average_value": 2500
+  },
+  "F": {
+    "thousands": true,
+    "coins": {
+      "cc": ["0%", ""],
+      "sc": ["10%", "2d20"],
+      "ec": ["20%", "1d8"],
+      "gc": ["50%", "10d6"],
+      "pc": ["30%", "1d3"]
+    },
+    "gems": ["20%", "2d12"],
+    "jewels": ["10%", "2d6"],
+    "items": ["30%", ["random|other-weapons|swords", "random|other-weapons|swords", "random|other-weapons|swords", "potions", "scrolls"]],
+    "average_value": 7600
+  },
+  "G": {
+    "thousands": true,
     "coins": {
       "cc": ["10%", "1d8"],
       "sc": ["15%", "1d10"],
@@ -49,6 +95,216 @@
     "gems": ["30%", "1d8"],
     "jewels": ["30%", "1d8"],
     "items": ["15%", ["potion", "random", "random"]],
-    "average_value": 4000
+    "average_value": 25000
+  },
+  "H": {
+    "thousands": true,
+    "coins": {
+      "cc": ["10%", "1d8"],
+      "sc": ["15%", "1d10"],
+      "ec": ["0%", ""],
+      "gc": ["60%", "1d6"],
+      "pc": ["0%", ""]
+    },
+    "gems": ["30%", "1d8"],
+    "jewels": ["30%", "1d8"],
+    "items": ["15%", ["potion", "random", "random"]],
+    "average_value": 60000
+  },
+  "I": {
+    "thousands": true,
+    "coins": {
+      "cc": ["10%", "1d8"],
+      "sc": ["15%", "1d10"],
+      "ec": ["0%", ""],
+      "gc": ["60%", "1d6"],
+      "pc": ["0%", ""]
+    },
+    "gems": ["30%", "1d8"],
+    "jewels": ["30%", "1d8"],
+    "items": ["15%", ["potion", "random", "random"]],
+    "average_value": 7500
+  },
+  "J": {
+    "thousands": true,
+    "coins": {
+      "cc": ["10%", "1d8"],
+      "sc": ["15%", "1d10"],
+      "ec": ["0%", ""],
+      "gc": ["60%", "1d6"],
+      "pc": ["0%", ""]
+    },
+    "gems": ["30%", "1d8"],
+    "jewels": ["30%", "1d8"],
+    "items": ["15%", ["potion", "random", "random"]],
+    "average_value": 25
+  },
+  "K": {
+    "thousands": true,
+    "coins": {
+      "cc": ["10%", "1d8"],
+      "sc": ["15%", "1d10"],
+      "ec": ["0%", ""],
+      "gc": ["60%", "1d6"],
+      "pc": ["0%", ""]
+    },
+    "gems": ["30%", "1d8"],
+    "jewels": ["30%", "1d8"],
+    "items": ["15%", ["potion", "random", "random"]],
+    "average_value": 250
+  },
+  "L": {
+    "thousands": true,
+    "coins": {
+      "cc": ["10%", "1d8"],
+      "sc": ["15%", "1d10"],
+      "ec": ["0%", ""],
+      "gc": ["60%", "1d6"],
+      "pc": ["0%", ""]
+    },
+    "gems": ["30%", "1d8"],
+    "jewels": ["30%", "1d8"],
+    "items": ["15%", ["potion", "random", "random"]],
+    "average_value": 225
+  },
+  "M": {
+    "thousands": true,
+    "coins": {
+      "cc": ["10%", "1d8"],
+      "sc": ["15%", "1d10"],
+      "ec": ["0%", ""],
+      "gc": ["60%", "1d6"],
+      "pc": ["0%", ""]
+    },
+    "gems": ["30%", "1d8"],
+    "jewels": ["30%", "1d8"],
+    "items": ["15%", ["potion", "random", "random"]],
+    "average_value": 50000
+  },
+  "N": {
+    "thousands": true,
+    "coins": {
+      "cc": ["10%", "1d8"],
+      "sc": ["15%", "1d10"],
+      "ec": ["0%", ""],
+      "gc": ["60%", "1d6"],
+      "pc": ["0%", ""]
+    },
+    "gems": ["30%", "1d8"],
+    "jewels": ["30%", "1d8"],
+    "items": ["15%", ["potion", "random", "random"]],
+    "average_value": 0
+  },
+  "O": {
+    "thousands": true,
+    "coins": {
+      "cc": ["10%", "1d8"],
+      "sc": ["15%", "1d10"],
+      "ec": ["0%", ""],
+      "gc": ["60%", "1d6"],
+      "pc": ["0%", ""]
+    },
+    "gems": ["30%", "1d8"],
+    "jewels": ["30%", "1d8"],
+    "items": ["15%", ["potion", "random", "random"]],
+    "average_value": 0
+  },
+  "P": {
+    "thousands": false,
+    "coins": {
+      "cc": ["10%", "1d8"],
+      "sc": ["15%", "1d10"],
+      "ec": ["0%", ""],
+      "gc": ["60%", "1d6"],
+      "pc": ["0%", ""]
+    },
+    "gems": ["30%", "1d8"],
+    "jewels": ["30%", "1d8"],
+    "items": ["15%", ["potion", "random", "random"]],
+    "average_value": 0.14
+  },
+  "Q": {
+    "thousands": false,
+    "coins": {
+      "cc": ["10%", "1d8"],
+      "sc": ["15%", "1d10"],
+      "ec": ["0%", ""],
+      "gc": ["60%", "1d6"],
+      "pc": ["0%", ""]
+    },
+    "gems": ["30%", "1d8"],
+    "jewels": ["30%", "1d8"],
+    "items": ["15%", ["potion", "random", "random"]],
+    "average_value": 0.1
+  },
+  "R": {
+    "thousands": false,
+    "coins": {
+      "cc": ["10%", "1d8"],
+      "sc": ["15%", "1d10"],
+      "ec": ["0%", ""],
+      "gc": ["60%", "1d6"],
+      "pc": ["0%", ""]
+    },
+    "gems": ["30%", "1d8"],
+    "jewels": ["30%", "1d8"],
+    "items": ["15%", ["potion", "random", "random"]],
+    "average_value": 7
+  },
+  "S": {
+    "thousands": false,
+    "coins": {
+      "cc": ["10%", "1d8"],
+      "sc": ["15%", "1d10"],
+      "ec": ["0%", ""],
+      "gc": ["60%", "1d6"],
+      "pc": ["0%", ""]
+    },
+    "gems": ["30%", "1d8"],
+    "jewels": ["30%", "1d8"],
+    "items": ["15%", ["potion", "random", "random"]],
+    "average_value": 5
+  },
+  "T": {
+    "thousands": false,
+    "coins": {
+      "cc": ["10%", "1d8"],
+      "sc": ["15%", "1d10"],
+      "ec": ["0%", ""],
+      "gc": ["60%", "1d6"],
+      "pc": ["0%", ""]
+    },
+    "gems": ["30%", "1d8"],
+    "jewels": ["30%", "1d8"],
+    "items": ["15%", ["potion", "random", "random"]],
+    "average_value": 15
+  },
+  "U": {
+    "thousands": false,
+    "coins": {
+      "cc": ["10%", "1d8"],
+      "sc": ["15%", "1d10"],
+      "ec": ["0%", ""],
+      "gc": ["60%", "1d6"],
+      "pc": ["0%", ""]
+    },
+    "gems": ["30%", "1d8"],
+    "jewels": ["30%", "1d8"],
+    "items": ["15%", ["potion", "random", "random"]],
+    "average_value": 90.55
+  },
+  "V": {
+    "thousands": false,
+    "coins": {
+      "cc": ["10%", "1d8"],
+      "sc": ["15%", "1d10"],
+      "ec": ["0%", ""],
+      "gc": ["60%", "1d6"],
+      "pc": ["0%", ""]
+    },
+    "gems": ["30%", "1d8"],
+    "jewels": ["30%", "1d8"],
+    "items": ["15%", ["potion", "random", "random"]],
+    "average_value": 159.25
   }
 }

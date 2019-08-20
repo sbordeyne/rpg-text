@@ -31,7 +31,7 @@ The entry point is the `main.py` file, in the root directory of the project.
 - AOE for spells
 - groups of monsters (not just single monsters)
 - map building
-- implementing all the treasure types
+- implementing all the treasure types (up to G : done)
 - implementing more spells
 - implementing more status effects
 - implement items

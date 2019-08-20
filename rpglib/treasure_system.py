@@ -28,10 +28,12 @@ class ItemsLootTable:
 
     @property
     def get(self):
-        if self.type == "random":
-            loot_type = random.choice(self.data.keys())
+        if "random" in self.type:
+            exceptions = self.type.split("|")[1:]
+            loot_type = "/".join([k for k in self.data.keys() if k not in exceptions])
         else:
             loot_type = self.type
+        loot_type = random.choice(loot_type.split("/"))
         data = self.data.get(loot_type, {})
         n = random.randint(1, 100)
         for key, value in data.items():
@@ -51,6 +53,7 @@ class Treasure:
         self.jewels = data.get("jewels", ["0%", ""])
         self.average_value = data.get("average_value", 0)
         self.items = data.get("items", ["0%", ""])
+        self.multiplier = 1000 if data.get("thousands", False) else 1
 
     def calculate(self):
         coin_rv = {}
@@ -60,7 +63,7 @@ class Treasure:
 
         for coin, coin_data in self.coins.items():
             if Treasure.has_item(coin_data[0]):
-                coin_rv[coin] = parse_dice_format(coin_data[1])
+                coin_rv[coin] = parse_dice_format(coin_data[1]) * self.multiplier
 
         if Treasure.has_item(self.gems[0]):
             gems_lt = LootTable("gems")
@@ -76,8 +79,14 @@ class Treasure:
 
         if Treasure.has_item(self.items[0]):
             for loot_type in self.items[1]:
-                items_lt = ItemsLootTable(loot_type)
-                item_rv.append(items_lt.get)
+                if ":" in loot_type:
+                    roll, table = loot_type.split(":")
+                    for i in range(parse_dice_format(roll)):
+                        items_lt = ItemsLootTable(table)
+                        item_rv.append(items_lt.get)
+                else:
+                    items_lt = ItemsLootTable(loot_type)
+                    item_rv.append(items_lt.get)
 
         return {"coins": coin_rv,
                 "gems": gem_rv,
