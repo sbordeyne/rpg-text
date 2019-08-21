@@ -37,7 +37,8 @@ class CommandSystem:
         self.combat_commands = [Command("help", self.help_combat),
                                 Command("flee", self.game.player.flee),
                                 Command("attack", self.game.player.attack),
-                                Command("cast", self.game.player.cast)]
+                                Command("cast", self.game.player.cast),
+                                Command("use", self.game.player.use)]
         pass
 
     def parse(self, command):
