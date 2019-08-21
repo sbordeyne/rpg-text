@@ -15,7 +15,7 @@ The entry point is the `main.py` file, in the root directory of the project.
 - [ ] Talk to NPCs around the world
 - [x] Combat system
 - [x] Status effects system
-- [ ] Quests system
+- [x] Quests system
 - [x] Saving and Loading the game
 - [x] Class/Race system
 - [x] Inventory system
@@ -24,7 +24,7 @@ The entry point is the `main.py` file, in the root directory of the project.
 - [x] Treasure system
 - [x] Monetary system
 - [x] Leveling system
-- [ ] Shops (buy/sell items)
+- [x] Shops (buy/sell items)
 
 # TODO:
 

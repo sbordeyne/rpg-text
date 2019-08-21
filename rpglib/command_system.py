@@ -1,10 +1,11 @@
 class Command:
-    def __init__(self, command, callback):
+    def __init__(self, command, callback, command_args=None):
         self.command = command.lower()
         self.callback = callback
+        self.command_args = command_args if command_args is not None else {}
 
     def __call__(self, *args):
-        self.callback(*args)
+        self.callback(*args, **self.command_args)
 
     def __eq__(self, other):
         if isinstance(other, str):
@@ -32,18 +33,27 @@ class CommandSystem:
                          Command("rest", self.game.player.rest),
                          Command("inspect", self.game.player.inspect),
                          Command("use", self.game.player.use),
-                         Command("view", self.game.player.view)]
+                         Command("view", self.game.player.view),
+                         Command("enter", self.game.enter)]
 
-        self.combat_commands = [Command("help", self.help_combat),
+        self.combat_commands = [Command("help", self.help, {'command_set': self.combat_commands}),
                                 Command("flee", self.game.player.flee),
                                 Command("attack", self.game.player.attack),
                                 Command("cast", self.game.player.cast),
                                 Command("use", self.game.player.use)]
+
+        self.shop_commands = [Command("help", self.help, {'command_set': self.shop_commands}),
+                              Command("buy", self.game.shop_system.buy),
+                              Command("sell", self.game.shop_system.sell),
+                              Command("list", self.game.shop_system.list),
+                              Command("exit", self.game.shop_system.exit)]
         pass
 
-    def parse(self, command):
+    def parse(self, command, command_set=None):
         cmd, *cmd_args = command.split()
-        for command in self.commands:
+        if command_set is None:
+            command_set = self.commands
+        for command in command_set:
             if command == cmd:
                 try:
                     rv = command(*cmd_args)
@@ -53,30 +63,21 @@ class CommandSystem:
                 return rv is None
         return False
 
-    def parse_combat(self, command):
-        cmd, *cmd_args = command.split()
-        for command in self.combat_commands:
-            if command == cmd:
-                try:
-                    rv = command(*cmd_args)
-                except TypeError:
-                    self.help_combat(command)
-                    return False
-                return rv is None
-        return False
-
-    def help(self, command=None):
+    def help(self, command=None, command_set=None):
         """Shows this message."""
-        if command is None:
-            for command in self.commands:
-                print(f"{command.command} : {command.callback.__doc__}")
-        else:
-            print(f"{command.command} : {command.callback.__doc__}")
+        if command_set is None:
+            command_set = self.commands
 
-    def help_combat(self, command=None):
-        """Shows this message"""
+        if isinstance(command, str):
+            for com in command_set:
+                if com.command == command:
+                    command = com
+                    break
+                else:
+                    command = None
+
         if command is None:
-            for command in self.combat_commands:
+            for command in command_set:
                 print(f"{command.command} : {command.callback.__doc__}")
         else:
             print(f"{command.command} : {command.callback.__doc__}")

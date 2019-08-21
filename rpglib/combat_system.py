@@ -53,7 +53,7 @@ class CombatSystem:
             self.n_turns += 1
             command = sanitized_input("> ", error_msg="Invalid Command!")
             print(self.combat_state())
-            while not self.game.command_system.parse_combat(command):
+            while not self.game.command_system.parse(command, self.game.command_system.combat_commands):
                 print("Invalid command. Type 'help' for help.")
                 command = sanitized_input("> ", error_msg="Invalid Command!")
             opponent.apply_status_effects()

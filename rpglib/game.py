@@ -12,6 +12,7 @@ from .map import Map
 from .saveload import SaveSystem
 from .utils import parse_dice_format
 from .stats import Stats
+from .shop_system import ShopSystem
 
 
 class Game:
@@ -24,6 +25,7 @@ class Game:
         self.treasure_system = TreasureSystem(self)
         self.save_system = SaveSystem(self)
         self.combat_system = CombatSystem(self)
+        self.shop_system = ShopSystem(self)
         self.command_system = CommandSystem(self)
 
     def next_turn(self):
@@ -100,6 +102,13 @@ class Game:
             print("Saves : " + ", ".join(found_saves))
         else:
             self.save_system.load(save_name)
+
+    def enter(self, location):
+        """Enter a location, or a shop. Specify the location to enter (shop)"""
+        if location == "shop":
+            self.shop_system.enter()
+        else:
+            self.command_system.help('enter')
 
     def quit(self):
         """Saves and quits the game. Save is named 'autosave'"""
