@@ -44,6 +44,7 @@ class CommandSystem:
                 try:
                     rv = command(*cmd_args)
                 except TypeError:
+                    self.help(command)
                     return False
                 return rv is None
         return False
@@ -55,18 +56,25 @@ class CommandSystem:
                 try:
                     rv = command(*cmd_args)
                 except TypeError:
+                    self.help_combat(command)
                     return False
                 return rv is None
         return False
 
-    def help(self):
+    def help(self, command=None):
         """Shows this message."""
-        for command in self.commands:
+        if command is None:
+            for command in self.commands:
+                print(f"{command.command} : {command.callback.__doc__}")
+        else:
             print(f"{command.command} : {command.callback.__doc__}")
 
-    def help_combat(self):
+    def help_combat(self, command=None):
         """Shows this message"""
-        for command in self.combat_commands:
+        if command is None:
+            for command in self.combat_commands:
+                print(f"{command.command} : {command.callback.__doc__}")
+        else:
             print(f"{command.command} : {command.callback.__doc__}")
 
     def info(self, argument):
