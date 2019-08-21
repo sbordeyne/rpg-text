@@ -10,6 +10,7 @@ class Monster(Entity):
         with open("data/monsters.json") as f:
             data = json.load(f).get(name, {})
         self.name = name
+        self.type_name = 'monster'
 
         self.level = data.get("level", 1)
         self.max_health = sum([random.randint(1, 8) for i in range(self.level)])

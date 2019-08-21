@@ -230,6 +230,12 @@ class Inventory:
             item = item.name
         return item in self.items and self.items[item] > 0
 
+    def use_item(self, item, target=None):
+        if self.has_item(item):
+            if isinstance(item, str):
+                item = Item(item)
+            item.use(target)
+
     def serialize(self):
         return {"items": self.items,
                 "money": self.money.serialize(),

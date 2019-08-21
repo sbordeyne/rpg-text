@@ -1,8 +1,9 @@
 from .inventory_system import Inventory
 from .entity import Entity
-from .utils import parse_dice_format
+from .utils import parse_dice_format, cast
 from .combat_system import Monster
 from .quest_system import QuestLog
+from .game_timer import Calendar
 
 
 class Player(Entity):
@@ -28,7 +29,7 @@ class Player(Entity):
 
     @health.setter
     def health(self, amount):
-        self._health = amount
+        self._health = min(amount, self.max_health)
 
     @property
     def max_health(self):
@@ -44,7 +45,7 @@ class Player(Entity):
 
     @mana.setter
     def mana(self, amount):
-        self._mana = amount
+        self._mana = min(amount, self.max_mana)
 
     @property
     def max_mana(self):
@@ -164,9 +165,6 @@ STATS : {str(self.stats)}"""
             self.health_rolls.append(parse_dice_format(self.job.hp_die))
             self.mana_rolls.append(parse_dice_format(self.job.mp_die))
 
-    def rest(self, time="8"):
-        pass
-
     def move(self, direction):
         """Moves the player in $direction (n, s, w, e)"""
         location = self.location.try_move_to(direction)
@@ -183,6 +181,30 @@ STATS : {str(self.stats)}"""
             effect.remove()
         self.status_effects = []
         self.stats.reset_temp_stats_modifiers()
+
+    def view(self, quest=None):
+        """Views the quest log. You can specify a specific $quest to view."""
+        pass
+
+    def use(self, item, target=None):
+        """Uses usable item $item."""
+        if target is None:
+            target = self
+        self.inventory.use_item(item, target)
+        pass
+
+    def inspect(self, thing):
+        """Inspects a $thing"""
+        pass
+
+    def rest(self, time="8"):
+        """Rests for $time hours. Defaults to 8."""
+        n_turns = cast(time, int, 8) * Calendar.minutes_per_hour // Calendar.minutes_per_turn
+        self.game.timer.tick(n_turns)
+        self.mana += parse_dice_format(f'{time * self.level}{self.job.mp_die}')
+        self.health += parse_dice_format(f'{time * self.level}{self.job.hp_die}')
+        print(f"You rested for {time} hours.")
+        pass
 
     def serialize(self):
         data = {"job": self.job.name,

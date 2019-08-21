@@ -250,8 +250,16 @@ def parse_dice_format(dice_format):
     rolls = rolls[drop:]
     return sum(rolls) + mod
 
+
 def interpolate_brackets(string, **data):
     for key, value in data.items():
         pattern = '[' + key + ']'
         re.sub(pattern, string)
     return string
+
+
+def cast(obj, cast_as, default=None):
+    try:
+        return cast_as(obj)
+    except ValueError:
+        return default

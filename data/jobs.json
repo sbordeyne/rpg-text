@@ -1,7 +1,7 @@
 {
   "commoner": {
-    "hp_die": "1d4",
-    "mp_die": "1d4",
+    "hp_die": "d4",
+    "mp_die": "d4",
     "xp_threshold": 1000,
     "saving_throws": {
       "poison": 15,
@@ -13,8 +13,8 @@
     "primary_stat": "str"
   },
   "warrior": {
-    "hp_die": "1d8",
-    "mp_die": "1d4",
+    "hp_die": "d8",
+    "mp_die": "d4",
     "xp_threshold": 2000,
     "saving_throws": {
       "poison": 12,
@@ -26,8 +26,8 @@
     "primary_stat": "str"
   },
   "wizard": {
-    "hp_die": "1d4",
-    "mp_die": "1d10",
+    "hp_die": "d4",
+    "mp_die": "d10",
     "xp_threshold": 2500,
     "saving_throws": {
       "poison": 13,
@@ -39,8 +39,8 @@
     "primary_stat": "int"
   },
   "thief": {
-    "hp_die": "1d4",
-    "mp_die": "1d4",
+    "hp_die": "d4",
+    "mp_die": "d4",
     "xp_threshold": 1200,
     "saving_throws": {
       "poison": 13,
@@ -52,8 +52,8 @@
     "primary_stat": "dex"
   },
   "cleric": {
-    "hp_die": "1d6",
-    "mp_die": "1d6",
+    "hp_die": "d6",
+    "mp_die": "d6",
     "xp_threshold": 1500,
     "saving_throws": {
       "poison": 11,

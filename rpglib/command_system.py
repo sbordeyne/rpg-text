@@ -29,7 +29,10 @@ class CommandSystem:
                          Command("quit", self.game.quit),
                          Command("equip", self.game.player.inventory.equip_item),
                          Command("dequip", self.game.player.inventory.equipped.de_equip),
-                         Command("rest", self.game.player.rest)]
+                         Command("rest", self.game.player.rest),
+                         Command("inspect", self.game.player.inspect),
+                         Command("use", self.game.player.use),
+                         Command("view", self.game.player.view)]
 
         self.combat_commands = [Command("help", self.help_combat),
                                 Command("flee", self.game.player.flee),
