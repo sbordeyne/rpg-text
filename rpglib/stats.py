@@ -96,7 +96,7 @@ class Stats:
             raise ValueError
 
     def __str__(self):
-        return " ; ".join([f"{stat_name.upper()}: {stat_value}" for stat_name, stat_value in self.as_dict])
+        return " ; ".join([f"{stat_name.upper()}: {stat_value}" for stat_name, stat_value in self.as_dict.items()])
 
     @property
     def as_dict(self):

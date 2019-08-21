@@ -87,6 +87,7 @@ class Game:
                 self.player.stats.recall_stats(saved_stats)
             elif p_cmd == 'info':
                 pass
+        self.player.health = self.player.max_health
 
     def load_game(self):
         clear_screen()

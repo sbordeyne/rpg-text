@@ -48,17 +48,17 @@ class CombatSystem:
 
         self.current_opponent = opponent
 
-        while not self.is_combat_finished(opponent):
+        while not self.is_combat_finished():
             self.n_turns += 1
             command = sanitized_input("> ", error_msg="Invalid Command!")
-            print(self.combat_state(opponent))
+            print(self.combat_state())
             while not self.game.command_system.parse_combat(command):
                 print("Invalid command. Type 'help' for help.")
                 command = sanitized_input("> ", error_msg="Invalid Command!")
             opponent.apply_status_effects()
             self.game.player.apply_status_effects()
 
-        self.finish_combat(opponent)
+        self.finish_combat()
 
     def is_combat_finished(self):
         return self.current_opponent.is_dead or self.game.player.is_dead or self.fleeing
@@ -88,8 +88,8 @@ class CombatSystem:
 
     @classmethod
     def attack(cls, attacker, defender):
+        attack, damage, status_effects = attacker.damage
         if CombatSystem.get_hit(attacker, defender):
-            attack, damage, status_effects = attacker.damage
             defender.take_damage(damage)
             if status_effects is None:
                 print(f"{attacker.name} attacked {defender.name} with {attack} and hit for {damage}!")

@@ -2,6 +2,7 @@ from .utils import MaxLenList
 from .item import Item
 from collections import defaultdict
 
+
 class MoneyInventory:
     def __init__(self):
         self.coins = {
@@ -209,7 +210,7 @@ class EquipmentInventory:
 class Inventory:
     def __init__(self):
         self.items = defaultdict(int)
-        self.equipped = EquipmentInventory()
+        self.equipped = EquipmentInventory(self)
         self.money = MoneyInventory()
 
     def get_item(self, item):

@@ -7,6 +7,8 @@ from .quest_system import QuestLog
 
 class Player(Entity):
     def __init__(self, game):
+        self.health_rolls = []
+        self.mana_rolls = []
         super().__init__()
         self.game = game
         self.name = None
@@ -18,9 +20,7 @@ class Player(Entity):
         self.inventory = Inventory()
         self.damage = ("hands", 0, None)
         self.level = 1
-        self.health_rolls = []
-        self.mana_rolls = []
-        self.quest_log = QuestLog()
+        self.quest_log = QuestLog(self)
 
     @property
     def health(self):
@@ -33,6 +33,10 @@ class Player(Entity):
     @property
     def max_health(self):
         return sum(self.health_rolls)
+
+    @max_health.setter
+    def max_health(self, value):
+        pass
 
     @property
     def mana(self):
@@ -83,14 +87,15 @@ class Player(Entity):
     def __str__(self):
         return \
             f"""Player {self.name} ; {self.health}/{self.max_health} HP ; {self.mana}/{self.max_mana} MP
-Location : {str(self.location)} ; Level {self.level} {str(self.job).capitalize()}"""
+Location : {str(self.location)} ; Level {self.level} {str(self.job).capitalize()}
+STATS : {str(self.stats)}"""
 
     def melee_attack(self):
         default = ["hands", parse_dice_format("1d4"), []]
         weapon = self.inventory.equipped.r_hand
         if weapon is not None:
-            default[0] = self.inventory.equipped.r_hand.name
-            default[1] = parse_dice_format(weapon.damage) + self.stats.str.modifier
+            default[0] = self.inventory.equipped.r_hand.display_name
+            default[1] = weapon.damage + self.stats.str.modifier
         if weapon.effects_on_hit:
             default[2].extend(weapon.effects_on_hit)
         self.damage = default
@@ -100,20 +105,20 @@ Location : {str(self.location)} ; Level {self.level} {str(self.job).capitalize()
         weapon = self.inventory.equipped.r_hand
         ammunition = self.inventory.equipped.l_hand
         if weapon is not None and self.inventory.has_item(weapon.ammunition_type):
-            default[0] = weapon.name
-            default[1] = parse_dice_format(weapon.damage) + self.stats.dex.modifier + ammunition.damage_modifier
+            default[0] = weapon.display_name
+            default[1] = weapon.damage + self.stats.dex.modifier + ammunition.damage_modifier
+            if weapon.effects_on_hit:
+                default[2].extend(weapon.effects_on_hit)
+            if ammunition.effects_on_hit:
+                default[2].extend(ammunition.effects_on_hit)
         elif weapon is not None:
-            print(f"{self.name} tried to attack with {weapon.name} but did not have enough ammo!")
+            print(f"{self.name} tried to attack with {weapon.display_name} but did not have enough ammo!")
             self.damage = ("", 0, [])
             return
         elif weapon is None:
             print(f"{self.name} has no ranged weapon equipped")
             self.damage = ("", 0, [])
             return
-        if weapon.effects_on_hit:
-            default[2].extend(weapon.effects_on_hit)
-        if ammunition.effects_on_hit:
-            default[2].extend(ammunition.effects_on_hit)
         self.damage = default
 
     def attack(self):
