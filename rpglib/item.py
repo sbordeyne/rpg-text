@@ -1,6 +1,5 @@
 import json
 from .utils import parse_dice_format
-from .player import Player
 
 
 class Item:
@@ -37,11 +36,7 @@ class Item:
     def use(self, target):
         if self.useable:
             target.inflict_status_effects(*self.effects_on_use)
-            if isinstance(target, Player):
-                pronoun = 'you'
-            else:
-                pronoun = target.name
-            print(f"You used {self.display_name} which granted {pronoun} {', '.join(self.effects_on_use)}!")
+            print(f"You used {self.display_name} which granted {target.namee} {', '.join(self.effects_on_use)}!")
         else:
             print("You can't use this item!")
         pass

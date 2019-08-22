@@ -1,18 +1,30 @@
 import tkinter as tk
+import _io
+
+
+class TkIOWrapper(_io.TextIOWrapper):
+    pass
 
 
 class Window(tk.Frame):
-    def __init__(self, master=None, size=(1024, 768)):
+    def __init__(self, master=None, size=(1024, 768), loop=None):
         super().__init__()
         self.master = master
 
         self.canvas = tk.Canvas(self, width=size[0], height=size[1], bg='black')
         self.canvas.pack()
         self.items = []
+        self.persistent_items = []
+        self._loop_callable = loop
+        self.loop()
 
-    def print(self, text, position, **kwargs):
-        item = self.canvas.create_text(position, text=text, fill='white', **kwargs)
-        self.items.append(item)
+    def print(self, text, position, persistent=False, **kwargs):
+        item = self.canvas.create_text(position, text=text, fill='white', font=('DejaVu Sans Mono', ), anchor=tk.NW,
+                                       **kwargs)
+        if persistent:
+            self.persistent_items.append(item)
+        else:
+            self.items.append(item)
         return item
 
     def button(self, text, position, callback):
@@ -24,9 +36,8 @@ class Window(tk.Frame):
             i = self.items.pop()
             self.canvas.delete(i)
 
+    def loop(self):
+        if callable(self._loop_callable):
+            self._loop_callable()
 
-if __name__ == '__main__':
-    root = tk.Tk()
-    window = Window(root)
-    window.pack()
-    root.mainloop()
+        self.after(50, self.loop)

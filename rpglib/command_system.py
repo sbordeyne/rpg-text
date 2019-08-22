@@ -36,13 +36,13 @@ class CommandSystem:
                          Command("view", self.game.player.view),
                          Command("enter", self.game.enter)]
 
-        self.combat_commands = [Command("help", self.help, {'command_set': self.combat_commands}),
+        self.combat_commands = [Command("help", self.help_combat),
                                 Command("flee", self.game.player.flee),
                                 Command("attack", self.game.player.attack),
                                 Command("cast", self.game.player.cast),
                                 Command("use", self.game.player.use)]
 
-        self.shop_commands = [Command("help", self.help, {'command_set': self.shop_commands}),
+        self.shop_commands = [Command("help", self.help_shop),
                               Command("buy", self.game.shop_system.buy),
                               Command("sell", self.game.shop_system.sell),
                               Command("list", self.game.shop_system.list),
@@ -81,6 +81,14 @@ class CommandSystem:
                 print(f"{command.command} : {command.callback.__doc__}")
         else:
             print(f"{command.command} : {command.callback.__doc__}")
+
+    def help_combat(self, command=None):
+        """Shows this message."""
+        self.help(command, command_set=self.combat_commands)
+
+    def help_shop(self, command=None):
+        """Shows this message."""
+        self.help(command, command_set=self.shop_commands)
 
     def info(self, argument):
         """Gets information about $argument (location, player, npc, time)"""
