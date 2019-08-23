@@ -199,6 +199,14 @@ class SavingThrows:
     def spells(self):
         return self._spells - (self._level // 4) * 2 - self.character.stats.wis.modifier
 
+    @property
+    def as_dict(self):
+        return {'poison': self.poison,
+                'wands': self.wands,
+                'paralysis': self.paralysis,
+                'breath': self.breath,
+                'spells': self.spells}
+
 
 class Job:
     def __init__(self, character, job_name='commoner'):

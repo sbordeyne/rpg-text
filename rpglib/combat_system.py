@@ -40,9 +40,11 @@ class CombatSystem:
         self.n_turns = 0
         self.fleeing = False
         self.current_opponent = None
+        self.in_combat = False
 
     def start_combat(self, opponent):
         self.n_turns = 0
+        self.in_combat = True
         if isinstance(opponent, str):
             opponent = Monster(opponent)
         elif not isinstance(opponent, Monster):
@@ -74,6 +76,7 @@ class CombatSystem:
         return "\n".join([opponent_status, player_status, player_moves])
 
     def finish_combat(self):
+        self.in_combat = False
         opponent = self.current_opponent
         if self.game.player.is_dead:
             self.game.game_over()

@@ -31,7 +31,6 @@ class Window(tk.Frame):
     def print(self, text, position, **kwargs):
         x_start, y_start = position
         for i, character in enumerate(text):
-            print(x_start+i, y_start)
             x = min(x_start + i, self.width)
             y = min(y_start, self.height)
             iid = self.items[x][y]

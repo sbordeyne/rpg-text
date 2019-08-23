@@ -1,6 +1,7 @@
 from .utils import MaxLenList
 from .item import Item
 from collections import defaultdict
+from .utils import parse_dice_format
 
 
 class MoneyInventory:
@@ -123,6 +124,12 @@ class MoneyInventory:
             self.get_jewel(*value)
         elif key == "gems":
             self.get_gem(*value)
+
+    def get_random_starting_money(self):
+        self.coins["gc"] = parse_dice_format('29d6')
+        self.coins["cc"] = parse_dice_format('d100')
+        self.coins["sc"] = parse_dice_format('d100')
+        self.coins["ec"] = parse_dice_format('d100')
 
 
 class EquipmentInventory:
