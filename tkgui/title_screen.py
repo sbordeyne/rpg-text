@@ -1,12 +1,21 @@
 import sys
 
 
-class TitleScreen:
-    def __init__(self, window, game):
-        self.game = game
-        self.window = window
+class NewGameScreen:
+    def __init__(self, manager):
+        self.manager = manager
 
-    def __call__(self):
+    def setup_ui(self):
+        pass
+
+
+class TitleScreen:
+    def __init__(self, manager):
+        self.game = manager.game
+        self.window = manager.window
+        self.manager = manager
+
+    def __call__(self, manager):
         self.window.clear()
         self.setup_ui()
 

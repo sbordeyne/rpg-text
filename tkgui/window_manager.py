@@ -1,7 +1,7 @@
 from rpglib.game import Game
 from .window import Window
 from .title_screen import TitleScreen
-import tkinter as tk
+from .player_info import PlayerInfo
 import io
 
 
@@ -12,13 +12,16 @@ class WindowManager:
         self.window = Window(root, loop=self.loop)
         self.window.pack()
 
-        self.title_screen = TitleScreen(self.window, self.game)
+        self.title_screen = TitleScreen(self)
+        self.pinfo = PlayerInfo(self)
         self.title_screen()
 
     def loop(self, *args, **kwargs):
         self.game.next_turn()
 
-    def print_game_window(self):
-        with io.open("assets/screens/game", encoding='utf-8') as f:
+    def print_asset(self, name='game', position=(0, 0)):
+        with io.open(f"assets/screens/{name}", encoding='utf-8') as f:
             for i, line in enumerate(f):
-                self.window.print(line, (0, i))
+                x = position[0]
+                y = position[1] + i
+                self.window.print(line, (x, y))

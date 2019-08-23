@@ -1,7 +1,8 @@
 class PlayerInfo:
-    def __init__(self, window, game):
-        self.window = window
-        self.game = game
+    def __init__(self, manager):
+        self.window = manager.window
+        self.game = manager.game
+        self.manager = manager
         self._index = 0
         self.num_pages = 3
 

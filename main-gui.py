@@ -1,4 +1,3 @@
-import io
 from rpglib.utils import parse_dice_format
 from tkgui.window_manager import WindowManager
 import tkinter as tk
@@ -16,11 +15,7 @@ def new_game(game):
     game.player.inventory.money.get_random_starting_money()
 
 
-# new_game()
-
 if __name__ == '__main__':
     root = tk.Tk()
     manager = WindowManager(root)
     root.mainloop()
-
-# pinfo = PlayerInfo(window, game)
