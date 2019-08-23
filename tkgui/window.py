@@ -68,5 +68,6 @@ class Window(tk.Frame):
     def loop(self):
         if callable(self._loop_callable) and self.did_action:
             self._loop_callable()
+            self.did_action = False
 
         self.after(50, self.loop)
