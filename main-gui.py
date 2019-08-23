@@ -1,21 +1,10 @@
-import tkinter as tk
-from tkgui.window import Window
-from tkgui.player_info import PlayerInfo
 import io
-from rpglib.game import Game
 from rpglib.utils import parse_dice_format
+from tkgui.window_manager import WindowManager
+import tkinter as tk
 
 
-game = Game()
-
-
-def loop():
-    global game
-    game.next_turn()
-
-
-def new_game():
-    global game
+def new_game(game):
     p_name = "Dogeek"
     p_job = "warrior"
     game.player.name = p_name
@@ -27,18 +16,11 @@ def new_game():
     game.player.inventory.money.get_random_starting_money()
 
 
-new_game()
+# new_game()
 
-root = tk.Tk()
-window = Window(root, loop=loop)
-window.pack()
+if __name__ == '__main__':
+    root = tk.Tk()
+    manager = WindowManager(root)
+    root.mainloop()
 
-with io.open("assets/screens/game", encoding='utf-8') as f:
-    for i, line in enumerate(f):
-        window.print(line, (0, i))
-
-pinfo = PlayerInfo(window, game)
-
-# window.button('CLICK', (10, 4), on_click)
-
-root.mainloop()
+# pinfo = PlayerInfo(window, game)

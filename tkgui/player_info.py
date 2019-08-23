@@ -4,6 +4,8 @@ class PlayerInfo:
         self.game = game
         self._index = 0
         self.num_pages = 3
+
+    def __call__(self):
         self.setup_ui()
         self.refresh_page()
 

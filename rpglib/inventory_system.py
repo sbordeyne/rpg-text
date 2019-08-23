@@ -193,14 +193,14 @@ class EquipmentInventory:
             return slot.name if slot is not None else "empty"
 
         def _r(slot):
-            return [item.name if item is not None else "empty" for item in slot]
+            return
 
         return {"head": _g(self.head),
                 "body": _g(self.body),
                 "legs": _g(self.legs),
                 "r_hand": _g(self.r_hand),
                 "l_hand": _g(self.l_hand),
-                "rings": _r(self.rings)}
+                "rings": [item.name if item is not None else "empty" for item in self.rings]}
 
     def deserialize(self, data):
         def _d(d):

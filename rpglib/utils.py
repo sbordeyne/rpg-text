@@ -192,7 +192,7 @@ class MaxLenList:
         self.index = 0
 
     def __iter__(self):
-        return self.items
+        return iter(self.items)
 
     def __getitem__(self, item):
         if not isinstance(item, int):

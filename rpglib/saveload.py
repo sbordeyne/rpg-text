@@ -1,6 +1,7 @@
 import json
 import glob
 import os
+import datetime
 
 
 class SaveSystem:
@@ -16,7 +17,8 @@ class SaveSystem:
         if not os.path.exists("saves"):
             os.mkdir("saves")
 
-        data = {"timer": self.game.timer.serialize(),
+        data = {"timestamp": str(datetime.datetime.now().timestamp()),
+                "timer": self.game.timer.serialize(),
                 "player": self.game.player.serialize(),
                 "map": self.game.map.serialize(),
                 "characters": self.game.character_system.serialize()}

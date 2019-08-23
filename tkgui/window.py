@@ -17,11 +17,13 @@ class Window(tk.Frame):
         self.canvas.pack()
         self.items = []
 
+        self.default_font = ('DejaVu Sans Mono', )
+
         for x in range(self.width + 1):
             items = []
             for y in range(self.height):
                 items.append(self.canvas.create_text((x * 10, y * 20), text=" ", fill="white",
-                                                     font=('DejaVu Sans Mono', ), anchor=tk.NW))
+                                                     font=self.default_font, anchor=tk.NW))
             self.items.append(items)
 
         self._loop_callable = loop
@@ -36,12 +38,15 @@ class Window(tk.Frame):
             iid = self.items[x][y]
             self.canvas.itemconfigure(iid, text=character, **kwargs)
 
-    def button(self, text, position, callback):
+    def button(self, text, position, callback, **kwargs):
+        if 'fill' not in kwargs.keys():
+            kwargs['fill'] = 'yellow'
+
         def highlight(evt):
-            self.canvas.itemconfigure(tag_name, fill='yellow')
+            self.canvas.itemconfigure(tag_name, **kwargs)
 
         def de_highlight(evt):
-            self.canvas.itemconfigure(tag_name, fill='white')
+            self.canvas.itemconfigure(tag_name, fill='white', font=self.default_font)
 
         tag_name = f'button-{position[0]}{position[1]}'
         self.print(text, position, tags=tag_name)
