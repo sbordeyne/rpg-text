@@ -158,9 +158,12 @@ STATS : {str(self.stats)}"""
         self.spell_list.cast(spell, target)
         pass
 
+    @property
+    def xp_to_next_level(self):
+        return self.job.xp_threshold * self.level
+
     def try_level_up(self):
-        current_threshold = self.job.xp_threshold * self.level
-        if self.experience >= current_threshold:
+        if self.experience >= self.xp_to_next_level:
             self.level += 1
             self.health_rolls.append(parse_dice_format(self.job.hp_die))
             self.mana_rolls.append(parse_dice_format(self.job.mp_die))
