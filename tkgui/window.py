@@ -1,9 +1,4 @@
 import tkinter as tk
-import _io
-
-
-class TkIOWrapper(_io.TextIOWrapper):
-    pass
 
 
 class Window(tk.Frame):
