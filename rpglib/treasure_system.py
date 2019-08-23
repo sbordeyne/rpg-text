@@ -108,7 +108,7 @@ class TreasureSystem:
     def get_treasure(treasure_type):
         return Treasure(treasure_type)
 
-    def add_treasure_to_player(self, treasure_type):
+    def add_treasure(self, treasure_type):
         player = self.game.player
         treasure = TreasureSystem.get_treasure(treasure_type)
         for k, v in treasure.calculate().items():

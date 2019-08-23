@@ -175,8 +175,9 @@ STATS : {str(self.stats)}"""
         self.experience += xp_value * (1 + self.xp_bonus)
         self.try_level_up()
 
-    def end_combat(self, xp_value):
-        self.gain_experience(xp_value)
+    def end_combat(self, opponent: Monster):
+        self.gain_experience(opponent.xp_value)
+        self.game.treasure_system.add_treasure(opponent.treasure)
         for effect in self.status_effects:
             effect.remove()
         self.status_effects = []

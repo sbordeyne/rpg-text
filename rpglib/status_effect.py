@@ -13,7 +13,9 @@ class StatusEffect:
             data = json.load(f).get(name, {})
 
         self.timeout = data.get("timeout", 1)
-        self.effects = list(data.get("effect", ""))
+        self.effects = data.get("effect", "")
+        if not isinstance(self.effects, list):
+            self.effects = [self.effects]
 
     def apply(self):
         self._counter += 1

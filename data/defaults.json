@@ -1,0 +1,20 @@
+{
+  "treasures": {
+    "thousands": false,
+    "coins": {
+      "cc": ["0%", ""],
+      "sc": ["0%", ""],
+      "ec": ["0%", ""],
+      "gc": ["0%", ""],
+      "pc": ["0%", ""]
+    },
+    "gems": ["0%", ""],
+    "jewels": ["0%", ""],
+    "items": ["0%", []],
+    "average_value": 0
+  },
+  "status_effects": {
+    "timeout": 1,
+    "effect": []
+  }
+}
