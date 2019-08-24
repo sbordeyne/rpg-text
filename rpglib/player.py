@@ -33,7 +33,7 @@ class Player(Entity):
 
     @property
     def max_health(self):
-        return sum(self.health_rolls)
+        return sum([hr + self.stats.con.modifier for hr in self.health_rolls])
 
     @max_health.setter
     def max_health(self, value):
@@ -49,7 +49,7 @@ class Player(Entity):
 
     @property
     def max_mana(self):
-        return sum(self.mana_rolls)
+        return sum([mr + self.stats.int.modifier for mr in self.mana_rolls])
 
     @property
     def position(self):
