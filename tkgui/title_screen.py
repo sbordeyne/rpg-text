@@ -1,6 +1,51 @@
 import sys
 from copy import copy
 from rpglib.utils import parse_dice_format
+import os
+
+
+class LoadGameScreen:
+    def __init__(self, manager):
+        self.manager = manager
+        self.start_index = 0
+        self.end_index = 24
+        self.nb_saves = 0
+        self.saves = [(sn, lambda evt: self.manager.game.save_system.load(sn))
+                      for sn in os.listdir('./saves') if sn.endswith('json')][self.start_index:self.end_index]
+        self.saves.insert(0, ("NEW GAME", self.new_game))
+
+    def __call__(self, *args, **kwargs):
+        self.manager.window.clear()
+        self.setup_ui()
+
+    def setup_ui(self):
+        self.manager.print_asset('load_game_frame')
+        self.manager.window.print('LOAD GAME', (7, 1))
+        self.manager.window.button('↑', (77, 2), self.move_up)
+        self.manager.window.button('↓', (77, 27), self.move_down)
+        self.update_ui()
+
+    def move_up(self, event):
+        if self.nb_saves > 24:
+            self.start_index = max(self.start_index - 1, 0)
+            self.end_index = min(self.end_index - 1, 24)
+        self.update_ui()
+
+    def move_down(self, event):
+        if self.nb_saves > 24:
+            self.start_index = min(self.start_index + 1, self.nb_saves)
+            self.end_index = min(self.end_index + 1, self.nb_saves + 24)
+        self.update_ui()
+
+    def update_ui(self):
+        self.nb_saves = len(self.saves)
+        for i, save in enumerate(self.saves):
+            save_name, save_callback = save
+            self.manager.window.print(' ' * 72, (5, 3 + i))
+            self.manager.window.button(save_name.upper(), (5, 3 + i), save_callback)
+
+    def new_game(self, event):
+        self.manager.title_screen.new_game_screen()
 
 
 class NewGameScreen:
@@ -59,6 +104,7 @@ class NewGameScreen:
         self.manager.game.player.name = self.player_name if self.player_name else "Milten"
         self.manager.game.player.job = self.job_name
         self.manager.window.print(' ' * 28, (14, 5))
+        self.manager.window.print(' ' * 10, (14, 3))
         self.manager.window.print(self.job_name.upper(), (14, 5))
         self.manager.window.print(self.manager.game.player.name.capitalize(), (14, 3))
         self.manager.window.button(' REROLL ', (55, 10), self.roll_stats)
@@ -114,6 +160,7 @@ class TitleScreen:
         self.window = manager.window
         self.manager = manager
         self.new_game_screen = NewGameScreen(manager)
+        self.load_game_screen = LoadGameScreen(manager)
 
     def __call__(self):
         self.window.clear()
@@ -121,7 +168,7 @@ class TitleScreen:
 
     def setup_ui(self):
         self.window.button("> NEW  GAME", (30, 10), self.new_game_screen, font=('DejaVu Sans Mono', 15, 'bold'))
-        self.window.button("> LOAD GAME", (30, 12), self.load_game, font=('DejaVu Sans Mono', 15, 'bold'))
+        self.window.button("> LOAD GAME", (30, 12), self.load_game_screen, font=('DejaVu Sans Mono', 15, 'bold'))
         self.window.button("> QUIT GAME", (30, 14), self.quit_game, font=('DejaVu Sans Mono', 15, 'bold'))
 
     def load_game(self, event):
