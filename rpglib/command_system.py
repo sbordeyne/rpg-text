@@ -50,7 +50,10 @@ class CommandSystem:
         pass
 
     def parse(self, command, command_set=None):
-        cmd, *cmd_args = command.split()
+        try:
+            cmd, *cmd_args = command.split()
+        except ValueError:
+            return False
         if command_set is None:
             command_set = self.commands
         for command in command_set:
