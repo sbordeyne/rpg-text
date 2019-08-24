@@ -10,7 +10,7 @@ class LoadGameScreen:
         self.start_index = 0
         self.end_index = 24
         self.nb_saves = 0
-        self.saves = [(sn, lambda evt: self.manager.game.save_system.load(sn))
+        self.saves = [(sn, lambda evt: self.load_save(sn))
                       for sn in os.listdir('./saves') if sn.endswith('json')][self.start_index:self.end_index]
         self.saves.insert(0, ("NEW GAME", self.new_game))
 
@@ -46,6 +46,10 @@ class LoadGameScreen:
 
     def new_game(self, event):
         self.manager.title_screen.new_game_screen()
+
+    def load_save(self, save_name):
+        self.manager.game.save_system.load(save_name)
+        self.manager.main_screen()
 
 
 class NewGameScreen:
@@ -136,6 +140,8 @@ class NewGameScreen:
     def start_game(self, *event):
         self.manager.game.player.health = self.manager.game.player.max_health
         self.manager.game.player.mana = self.manager.game.player.max_mana
+        self.manager.game.player.inventory.money.get_random_starting_money()
+        self.manager.main_screen()
         pass
 
     def update_ui(self):

@@ -1,7 +1,7 @@
 from rpglib.game import Game
 from .window import Window
 from .title_screen import TitleScreen
-from .player_info import PlayerInfo
+from .main_screen import MainScreen
 import io
 
 
@@ -13,7 +13,7 @@ class WindowManager:
         self.window.pack()
 
         self.title_screen = TitleScreen(self)
-        self.pinfo = PlayerInfo(self)
+        self.main_screen = MainScreen(self)
         self.title_screen()
 
     def loop(self, *args, **kwargs):
