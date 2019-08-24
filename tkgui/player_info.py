@@ -56,9 +56,9 @@ class PlayerInfo:
         for key, value in self.game.player.inventory.money.coins.items():
             self.window.print(f'{key.upper()} :  {value}', (49, 15 + i))
             i += 1
-        self.window.print(f'GEMS :  {self.game.player.inventory.money.gems_value} GC', (49, 15 + i))
-        self.window.print(f'JEWELS :  {self.game.player.inventory.money.jewels_value} GC', (49, 16 + i))
-        self.window.print(f'TOTAL :  {self.game.player.inventory.money.value} GC', (49, 17 + i))
+        self.window.print(f'GEMS   :  {self.game.player.inventory.money.gems_value}   GC', (49, 15 + i))
+        self.window.print(f'JEWELS :  {self.game.player.inventory.money.jewels_value}   GC', (49, 16 + i))
+        self.window.print(f'TOTAL  :  {self.game.player.inventory.money.value:02} GC', (49, 17 + i))
 
     def on_page_left(self, event):
         self.index -= 1

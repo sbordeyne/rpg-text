@@ -60,6 +60,7 @@ class NewGameScreen:
         self.saved_mana = [2]
         self.saved_stats = {k: 9 for k in ('str', 'int', 'chr', 'con', 'wis', 'dex')}
         self.player_name = ""
+        self.points_to_reassign = 0
 
     def __call__(self, *args, **kwargs):
         self.manager.window.clear()
@@ -115,7 +116,36 @@ class NewGameScreen:
         self.manager.window.button('  SAVE  ', (55, 12), self.save_stats)
         self.manager.window.button(' RECALL ', (55, 14), self.recall_stats)
         self.manager.window.button('CONTINUE', (55, 16), self.start_game)
+
+        stats = ('str', 'int', 'wis', 'dex', 'con', 'chr')
+        self.manager.window.button('<', (18, 10 + 2 * 0), lambda evt: self.decrease_stat('str'))
+        self.manager.window.button('>', (20, 10 + 2 * 0), lambda evt: self.increase_stat('str'))
+        self.manager.window.button('<', (18, 10 + 2 * 1), lambda evt: self.decrease_stat('int'))
+        self.manager.window.button('>', (20, 10 + 2 * 1), lambda evt: self.increase_stat('int'))
+        self.manager.window.button('<', (18, 10 + 2 * 2), lambda evt: self.decrease_stat('wis'))
+        self.manager.window.button('>', (20, 10 + 2 * 2), lambda evt: self.increase_stat('wis'))
+        self.manager.window.button('<', (18, 10 + 2 * 3), lambda evt: self.decrease_stat('dex'))
+        self.manager.window.button('>', (20, 10 + 2 * 3), lambda evt: self.increase_stat('dex'))
+        self.manager.window.button('<', (18, 10 + 2 * 4), lambda evt: self.decrease_stat('con'))
+        self.manager.window.button('>', (20, 10 + 2 * 4), lambda evt: self.increase_stat('con'))
+        self.manager.window.button('<', (18, 10 + 2 * 5), lambda evt: self.decrease_stat('chr'))
+        self.manager.window.button('>', (20, 10 + 2 * 5), lambda evt: self.increase_stat('chr'))
+
         self.roll_stats()
+
+    def decrease_stat(self, stat_name):
+        if self.manager.game.player.stats[stat_name] > 3:
+            self.manager.game.player.stats[stat_name]._value -= 1
+            self.points_to_reassign += 1
+            self.update_ui()
+        pass
+
+    def increase_stat(self, stat_name):
+        if self.points_to_reassign > 0 and self.manager.game.player.stats[stat_name] < 18:
+            self.manager.game.player.stats[stat_name]._value += 1
+            self.points_to_reassign -= 1
+            self.update_ui()
+        pass
 
     def roll_stats(self, *event):
         self.manager.game.player.stats.randomize()
@@ -145,10 +175,10 @@ class NewGameScreen:
         pass
 
     def update_ui(self):
-        i = 0
-        for stat_name, stat_value in self.manager.game.player.stats.as_dict.items():
+        stats = ('str', 'int', 'wis', 'dex', 'con', 'chr')
+        for i, stat_name in enumerate(stats):
+            stat_value = self.manager.game.player.stats.as_dict[stat_name]
             self.manager.window.print(f'{stat_name.upper()}  :  {stat_value:2}', (6, 10 + 2 * i))
-            i += 1
 
         self.manager.window.print("HEALTH :", (50, 3))
         self.manager.window.print("MANA   :", (50, 5))
@@ -156,8 +186,11 @@ class NewGameScreen:
         self.manager.window.print(f'{self.manager.game.player.max_health:2}', (60, 3))
         self.manager.window.print(f'{self.manager.game.player.max_mana:2}', (60, 5))
 
-        self.manager.window.print(f'TOTAL : {sum(self.manager.game.player.stats.as_dict.values()):3}', (30, 25))
-        self.manager.window.print(f'SAVED : {sum(self.saved_stats.values()):3}', (30, 27))
+        self.manager.window.print(f'POINTS : {self.points_to_reassign:3}', (30, 23))
+        self.manager.window.print(f'TOTAL  : '
+                                  f'{sum(self.manager.game.player.stats.as_dict.values()) + self.points_to_reassign:3}',
+                                  (30, 25))
+        self.manager.window.print(f'SAVED  : {sum(self.saved_stats.values()):3}', (30, 27))
 
 
 class TitleScreen:
