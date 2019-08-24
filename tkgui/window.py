@@ -28,7 +28,6 @@ class Window(tk.Frame):
 
         self._loop_callable = loop
         self.did_action = False
-        self.text_input_text = ''
         self.loop()
 
     def print(self, text, position, **kwargs):
@@ -56,24 +55,9 @@ class Window(tk.Frame):
         self.canvas.tag_bind(tag_name, '<Leave>', de_highlight)
 
     def clear(self):
-        self.items = []
-        self.text_input_text = ''
-
-        for x in range(self.width + 1):
-            items = []
-            for y in range(self.height):
-                items.append(self.canvas.create_text((x * 10, y * 20), text=" ", fill="white",
-                                                     font=('DejaVu Sans Mono', ), anchor=tk.NW))
-            self.items.append(items)
-
-    def text_input(self, position, width=80):
-        def on_keypress(event):
-            self.text_input_text += event.char
-            pass
-        pass
-
-    def update_text_input(self):
-        pass
+        for item in [iid for sublist in self.items for iid in sublist]:
+            self.canvas.itemconfigure(item, text=" ", fill="white", tags=tuple(),
+                                      font=self.default_font, anchor=tk.NW)
 
     def loop(self):
         if callable(self._loop_callable) and self.did_action:
