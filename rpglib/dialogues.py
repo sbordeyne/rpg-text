@@ -1,5 +1,4 @@
 import json
-from .default_store import default_store
 
 
 class Dialogue:
@@ -9,8 +8,8 @@ class Dialogue:
         with open('data/dialogues.json') as f:
             data = json.load(f)
 
-        self.dialogue = data.get('dialogue', default_store.dialogues['dialogue'])
-        self.choices = data.get('choices', default_store.choices['choices'])
+        self.dialogue = data.get('dialogue', [])
+        self.choices = data.get('choices', [])
         self.choices = {cname: Dialogue(c) for (cname, c) in self.choices}
 
     def __call__(self, *args, **kwargs):

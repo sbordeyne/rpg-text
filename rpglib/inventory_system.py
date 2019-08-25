@@ -188,12 +188,21 @@ class EquipmentInventory:
             for s in ('head', 'body', 'legs', 'r_hand', 'l_hand', 'rings'):
                 self.de_equip(s)
 
+    @property
+    def as_dict(self):
+        def _g(slot):
+            return slot.display_name if slot is not None else "empty"
+
+        return {"head": _g(self.head),
+                "body": _g(self.body),
+                "legs": _g(self.legs),
+                "r.hand": _g(self.r_hand),
+                "l.hand": _g(self.l_hand),
+                "rings": [item.name if item is not None else "empty" for item in self.rings]}
+
     def serialize(self):
         def _g(slot):
             return slot.name if slot is not None else "empty"
-
-        def _r(slot):
-            return
 
         return {"head": _g(self.head),
                 "body": _g(self.body),

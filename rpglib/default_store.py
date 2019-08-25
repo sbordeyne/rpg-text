@@ -24,5 +24,8 @@ class DefaultStore:
     def __getitem__(self, item):
         return self.defaults.get(item)
 
+    def get(self, data, category, item):
+        return data.get(item, self[category][item])
+
 
 default_store = DefaultStore()
