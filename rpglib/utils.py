@@ -129,7 +129,7 @@ class RetryCountExceededError(Exception):
     pass
 
 
-def sanitized_input(message="", cast_obj=None, n_retries=-1, error_msg="", valid_input=[]):
+def sanitized_input(message="", cast_obj=None, n_retries=-1, error_msg="", valid_input=[], quitting=False):
     """
          Function sanitized_input :
          @args
@@ -142,6 +142,8 @@ def sanitized_input(message="", cast_obj=None, n_retries=-1, error_msg="", valid
              error_msg: message to show the user before asking the input again in
                         case an error occurs (default: repr of the exception)
              valid_input: an iterable to check if the result is allowed.
+             quitting: a flag used to check if this prompt is being called after the user hit
+                       Ctrl-C, allows quick exit with a double Ctrl-C
         @returns
            rv : string literal casted into the cast_obj as per that object's rules.
            raises : RetryCountExceededError if the retry count has exceeded the n_retries limit.
@@ -173,6 +175,15 @@ def sanitized_input(message="", cast_obj=None, n_retries=-1, error_msg="", valid
                 print(repr(e))
             retry_cnt += 1
             continue
+        except KeyboardInterrupt:
+            if quitting:
+                sys.exit(0)
+            print('Really exit? (yes/no)')
+            exit_cmd = sanitized_input("> ", valid_input=('yes', 'no'), quitting=True)
+            if(exit_cmd == 'yes'):
+                sys.exit(0)
+            else:
+                continue
     raise RetryCountExceededError(f"RetryCountExceededError : count exceeded in function 'sanitized_input' of {__name__}")
 
 
