@@ -106,3 +106,18 @@ class CommandSystem:
             print(self.game.timer.date)
         else:
             return False
+
+    def add_command(self, command_name, command_callback, command_set=None, command_args=None):
+        if isinstance(command_set, str):
+            if command_set.lower() == 'default':
+                command_set = self.commands
+            elif command_set.lower() == 'shop':
+                command_set = self.shop_commands
+            elif command_set.lower() == 'combat':
+                command_set = self.combat_commands
+            else:
+                raise ValueError
+        elif command_set is None:
+            command_set = self.commands
+        
+        command_set.append(Command(command_name, command_callback, command_args))
