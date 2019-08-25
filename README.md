@@ -9,10 +9,14 @@ Components may load extra data, from the JSON files in the `data` folder.
 
 The entry point is the `main.py` file, in the root directory of the project.
 
+# Specifications
+
+See [specifications.md](specifications.md)
+
 # Planned features:
 
 - [x] Spellcasting system
-- [ ] Talk to NPCs around the world
+- [x] Talk to NPCs around the world
 - [x] Combat system
 - [x] Status effects system
 - [x] Quests system
@@ -31,7 +35,6 @@ The entry point is the `main.py` file, in the root directory of the project.
 - AOE for spells
 - groups of monsters (not just single monsters)
 - map building
-- implementing all the treasure types (up to G : done)
 - implementing more spells
 - implementing more status effects
 - implement items
