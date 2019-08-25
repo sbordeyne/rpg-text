@@ -119,5 +119,5 @@ class CommandSystem:
                 raise ValueError
         elif command_set is None:
             command_set = self.commands
-        
+
         command_set.append(Command(command_name, command_callback, command_args))

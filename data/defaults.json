@@ -16,5 +16,9 @@
   "status_effects": {
     "timeout": 1,
     "effect": []
+  },
+  "dialogues": {
+    "dialogue": [],
+    "choices": []
   }
 }
