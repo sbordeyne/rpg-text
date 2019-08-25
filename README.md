@@ -1,6 +1,14 @@
 # rpg-text
  An object-oriented text RPG based loosely on the rules of Original Dungeons and Dragons.
 
+# License
+
+See [Licence](LICENSE)
+
+# Changelog
+
+See [CHANGELOG.md](CHANGELOG.md)
+
 # Components and Data
 
 Components are defined in the rpglib package. Each component is a part of the game's "engine"
@@ -11,7 +19,7 @@ The entry point is the `main.py` file, in the root directory of the project.
 
 # Specifications
 
-See [specifications.md](specifications.md)
+See [SPECIFICATIONS.md](specifications.md)
 
 # Planned features:
 
