@@ -2,7 +2,7 @@ from .player_info import PlayerInfo
 
 
 class History:
-    def __init__(self):
+    def __init__(self, height=4):
         self.history = []
         self.height = 4
         self._index = 0
@@ -38,9 +38,9 @@ class History:
         self.index = len(self.history)
 
     def move(self, event):
-        if event.keysym == 'Prior':
+        if event.keysym in ('Prior', 'Up'):
             self.index -= 1
-        elif event.keysym == 'Next':
+        elif event.keysym in ('Next', 'Down'):
             self.index += 1
         else:
             self.index = event.keysym
@@ -52,6 +52,7 @@ class MainScreen:
         self.command = ""
         self.player_info = PlayerInfo(manager)
         self.history = History()
+        self.cmd_history = History(height=1)
 
     def __call__(self, *args, **kwargs):
         self.manager.window.clear()
@@ -69,11 +70,19 @@ class MainScreen:
         elif event.keysym == 'Return':
             self.manager.window.did_action = True
             self.manager.window.print(' ' * 70, (7, 28))
+            self.cmd_history.add(self.command)
             return
         elif event.keysym in ('Prior', 'Next', 'Home', 'End'):
             self.history.move(event)
             self.update_ui()
             return
+        elif event.keysym in ('Up', 'Down'):
+            if self.cmd_history.index == len(self.cmd_history.history):
+                self.command = ""
+            else:
+                self.cmd_history.move(event)
+                self.command = self.cmd_history[self.cmd_history.index]
+            self.update_ui()
         else:
             self.command += event.char
         self.manager.window.print(' ' * 70, (7, 28))
