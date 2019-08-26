@@ -9,6 +9,10 @@ See [Licence](LICENSE)
 
 See [CHANGELOG.md](docs/CHANGELOG.md)
 
+# How to use
+
+See [HOW-TO-USE.md](docs/HOW-TO-USE.md)
+
 # Components and Data
 
 Components are defined in the rpglib package. Each component is a part of the game's "engine"
