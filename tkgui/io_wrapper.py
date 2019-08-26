@@ -1,9 +1,10 @@
-import _io
+class TkIOWrapper:
+    """
+        A class that redirects the iostream to a tkinter window.
 
-
-class TkIOWrapper:  # (_io.TextIOWrapper):
-    def __init__(self, window, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        :param window: a tkinter widget with a write method.
+    """
+    def __init__(self, window):
         self.window = window
 
     def write(self, text, *args, **kwargs):

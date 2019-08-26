@@ -73,9 +73,9 @@ class NewGameScreen:
         self.manager.window.print('NAME : _', (7, 3))
         self.manager.window.print('JOB  :', (7, 5))
         self.manager.window.button('WARRIOR', (14, 5), self.select_job_warrior)
-        self.manager.window.button('THIEF', (23, 5), self.select_job_warrior)
-        self.manager.window.button('WIZARD', (29, 5), self.select_job_warrior)
-        self.manager.window.button('CLERIC', (36, 5), self.select_job_warrior)
+        self.manager.window.button('THIEF', (23, 5), self.select_job_thief)
+        self.manager.window.button('WIZARD', (29, 5), self.select_job_wizard)
+        self.manager.window.button('CLERIC', (36, 5), self.select_job_cleric)
         self.manager.window.print('STATS', (9, 8))
 
     def on_keypress(self, event):

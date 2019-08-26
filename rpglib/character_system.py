@@ -2,6 +2,13 @@ import json
 
 
 class Character:
+    """
+    Representation of a Character (NPC) in the game.
+
+    :param name: name id of the NPC
+    :param data: (optional), dictionary of values to assign attributes of this class to.
+                 See docs/specifications.md for more info.
+    """
     def __init__(self, name, data=None):
         if data is None:
             data = {}

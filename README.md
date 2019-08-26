@@ -7,7 +7,7 @@ See [Licence](LICENSE)
 
 # Changelog
 
-See [CHANGELOG.md](CHANGELOG.md)
+See [CHANGELOG.md](docs/CHANGELOG.md)
 
 # Components and Data
 
@@ -19,7 +19,7 @@ The entry point is the `main.py` file, in the root directory of the project.
 
 # Specifications
 
-See [SPECIFICATIONS.md](specifications.md)
+See [SPECIFICATIONS.md](docs/specifications.md)
 
 # Planned features:
 
