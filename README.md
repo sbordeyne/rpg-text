@@ -1,6 +1,9 @@
 # rpg-text
  An object-oriented text RPG based loosely on the rules of Original Dungeons and Dragons.
 
+ This project has garnered some attention, and as per the license is completely open-source. Parts of this project are licensed under the OGL (Open Game License), for material that is
+ the property of Wizards of the Coast, LLC.
+
 # License
 
 See [Licence](LICENSE)
@@ -25,29 +28,6 @@ The entry point is the `main.py` file, in the root directory of the project.
 
 See [SPECIFICATIONS.md](docs/specifications.md)
 
-# Planned features:
+# Maintainers
 
-- [x] Spellcasting system
-- [x] Talk to NPCs around the world
-- [x] Combat system
-- [x] Status effects system
-- [x] Quests system
-- [x] Saving and Loading the game
-- [x] Class/Race system
-- [x] Inventory system
-- [x] Stat checks, and modifiers
-- [x] Command system
-- [x] Treasure system
-- [x] Monetary system
-- [x] Leveling system
-- [x] Shops (buy/sell items)
-
-# TODO:
-
-- AOE for spells
-- groups of monsters (not just single monsters)
-- map building
-- implementing more spells
-- implementing more status effects
-- implement items
-- implement NPC dialogues
+- Dogeek (dogeek.pro@gmail.com)
