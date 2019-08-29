@@ -88,7 +88,7 @@ class Game:
                 self.player.mana_rolls = copy(saved_mana)
                 self.player.stats.recall_stats(saved_stats)
             elif p_cmd == 'info':
-                pass
+                self.player.stats.info()
         self.player.health = self.player.max_health
         self.player.inventory.money.get_random_starting_money()
 
