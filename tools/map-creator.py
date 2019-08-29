@@ -35,6 +35,7 @@ class MapView(tk.Canvas):
         x = int(x - x % 16)
         y = int(y - y % 16)
         self.selected_position = (x, y)
+        self.master.form_frame.load(*self.map_position)
         self.master.form_frame.set_position_label(*self.map_position)
         self.coords(self.cursor, x, y, x + 16, y + 16)
 
@@ -99,8 +100,28 @@ class FormView(tk.Frame):
         self.master.data.data[name]['position'] = list(self.master.canvas.map_position)
         self.master.data.data[name]['exits'] = [en for e, en in zip(self.exits_var, self.exits_names) if e.get() == 1]
 
-    def set_position_label(self, x, y):
+    def load(self, x, y):
+        name = ""
+        for key, val in self.master.data.data.items():
+            if val.get('position') == [x, y]:
+                name = key
+        print(name, x, y)
         self.position_label.config(text=f'({x}, {y})')
+        if self.master.data.data[name] != {}:
+            self.form_entries['Description'].delete('1.0', tk.END)
+            self.form_entries["Description"].insert(tk.END, self.master.data.data[name]['description'])
+            self.variables["Icon"].set(self.master.data.data[name]['map_icon'])
+            self.variables["Location Name"].set(name)
+            self.variables["NPCs"].set(" ".join(self.master.data.data[name]['npc']))
+            for e, en in zip(self.exits_var, self.exits_names):
+                e.set(1 if en in self.master.data.data[name]['exits'] else 0)
+        else:
+            self.form_entries['Description'].delete('1.0', tk.END)
+            self.variables["Icon"].set("")
+            self.variables["Location Name"].set("")
+            self.variables["NPCs"].set("")
+            for e in self.exits_var:
+                e.set(0)
 
 
 class MapCreatorGUI(tk.Frame):
