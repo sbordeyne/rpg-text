@@ -145,6 +145,40 @@ class Stats:
         self.con.temp_stat_modifier = 0
         self.wis.temp_stat_modifier = 0
 
+    def info(self):
+        ret = (
+            'Character stats\n'
+            'Each is calculated by rolling 3d6\n'
+            '\n'
+            'For each stat: 3-8: below average, 9-12: average, 13-18: above average\n'
+            '\n'
+            f'Strength (str): Carrying/lifting capability; physical prowess; main stat for warrior; [{self.str.value}]\n'
+            '           3-8: difficulty standing in wind to trouble lifting heavy objects\n'
+            '          9-12: can pull bodyweight to ability to carry heavy objects\n'
+            '         13-18: can throw objects long distances to ability to break hard objects\n'
+            f'Intelligence (int): Book knowledge, language, memory, and reasoning skills; main stat for wizard; [{self.int.value}]\n'
+            '               3-8: essentially illiterate to moderate difficulty conversing\n'
+            '              9-12: can get by with knowledge to decent logic skills\n'
+            '             13-18: can solve math or logic problems to inventing new skills\n'
+            f'Dexterity (dex): Physical agility and coordination; main stat for thief; [{self.dex.value}]\n'
+            '            3-8: difficulty walking to slow and clumsy\n'
+            '           9-12: can run slowly to hit large targets with accuracy\n'
+            '          13-18: can dodge some projectiles to hit small moving targets with accuracy\n'
+            f'Charisma (chr): Strength of personality and persuasiveness, social awareness; [{self.chr.value}]\n'
+            '           3-8: unlikeable in social settings to somewhat boring\n'
+            '          9-12: can be polite to knows what to say to whom\n'
+            '         13-18: moderately interesting to immediately persuasive and charming\n'
+            f'Constitution (con): Physical endurance, stamina, and immunity; [{self.con.value}]\n'
+            '               3-8: very frail to somewhat prone to disease and exhaustion\n'
+            '              9-12: tired from normal effort to enduring physical stress\n'
+            '             13-18: can exert oneself for long hours to high physical resilience\n'
+            f'Wisdom (wis): Awareness through experience; common sense and perception; main stat for cleric; [{self.wis.value}]\n'
+            '         3-8: very unobservant to jumping into situations without forethought\n'
+            '        9-12: can make decent decisions to reading body language\n'
+            '       13-18: good situational awareness to being a consult or advisor\n'
+        )
+        print(ret)
+
 
 class SavingThrows:
     saving_throws_names = ["poison", "wands", "paralysis", "breath", "spells"]
