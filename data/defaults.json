@@ -35,6 +35,7 @@
     "display_name": null,
     "effects_on_equip": [],
     "description": "",
-    "effects_on_use": []
+    "effects_on_use": [],
+    "ammunition_type": ""
   }
 }

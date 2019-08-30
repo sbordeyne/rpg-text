@@ -72,7 +72,7 @@ class NewGameScreen:
         self.manager.window.print('NEW GAME', (7, 1))
         self.manager.window.print('NAME : _', (7, 3))
         self.manager.window.print('JOB  :', (7, 5))
-        self.manager.window.button('WARRIOR', (14, 5), self.select_job_warrior)
+        self.manager.window.button('FIGHTER', (14, 5), self.select_job_fighter)
         self.manager.window.button('THIEF', (23, 5), self.select_job_thief)
         self.manager.window.button('WIZARD', (29, 5), self.select_job_wizard)
         self.manager.window.button('CLERIC', (36, 5), self.select_job_cleric)
@@ -89,8 +89,8 @@ class NewGameScreen:
             if len(self.player_name) < 8:
                 self.manager.window.print('_', (14 + len(self.player_name), 3))
 
-    def select_job_warrior(self, event):
-        self.job_name = 'warrior'
+    def select_job_fighter(self, event):
+        self.job_name = 'fighter'
         self.clear_job_line()
 
     def select_job_thief(self, event):

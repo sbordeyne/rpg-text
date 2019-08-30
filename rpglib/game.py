@@ -52,8 +52,8 @@ class Game:
         clear_screen()
         print("Please enter your character's name.")
         p_name = sanitized_input("> ", error_msg="")
-        print("Please enter your desired job (thief, wizard, warrior, cleric).")
-        p_job = sanitized_input("> ", error_msg="Invalid job.", valid_input=("thief", "wizard", "warrior", "cleric"))
+        print("Please enter your desired job (thief, wizard, fighter, cleric).")
+        p_job = sanitized_input("> ", error_msg="Invalid job.", valid_input=("thief", "wizard", "fighter", "cleric"))
         self.player.name = p_name
         self.player.job = p_job
         satisfied_rolls = False

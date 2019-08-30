@@ -8,7 +8,7 @@ class DataSerializer:
         self.filename = filename
         self.data = defaultdict(dict)
 
-    def save(self):
+    def save(self, *args):
         with open(self.filename, 'w') as f:
             json.dump(self.data, f)
 
@@ -135,6 +135,7 @@ class MapCreatorGUI(tk.Frame):
 
         self.data = DataSerializer()
 
+        master.bind('<Control-s>', self.data.save)
         self.setup_ui()
         self.loop()
 

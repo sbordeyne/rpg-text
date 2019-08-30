@@ -22,6 +22,8 @@ class Item:
         self.effects_on_equip = data.get("effects_on_equip", [])
         self.description = data.get("description", "")
         self.effects_on_use = data.get("effects_on_use", [])
+        self.ammunition_type = data.get("ammunition_type", "")
+        self.ac_bonus = data.get("ac_bonus", 0)
 
     @property
     def display_name(self):

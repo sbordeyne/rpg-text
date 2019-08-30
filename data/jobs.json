@@ -12,7 +12,7 @@
     },
     "primary_stat": "str"
   },
-  "warrior": {
+  "fighter": {
     "hp_die": "d8",
     "mp_die": "d4",
     "xp_threshold": 2000,
