@@ -24,7 +24,7 @@ class SaveSystem:
                 "characters": self.game.character_system.serialize()}
         with open(f"saves/{save_name}.json", "w") as save_file:
             json.dump(data, save_file, indent=4)
-        print("Games saved successfully.")
+        print("Game saved successfully.")
             
 
     def load(self, save_name):
