@@ -211,7 +211,8 @@ STATS : {str(self.stats)}"""
         pass
 
     def serialize(self):
-        data = {"job": self.job.name,
+        data = {"name": self.name,
+                "job": self.job.name,
                 "experience": self.experience,
                 "health": self._health,
                 "mana": self._mana,
@@ -226,6 +227,7 @@ STATS : {str(self.stats)}"""
         return data
 
     def deserialize(self, data):
+        self.name = data["name"]
         self.job = data["job"]
         self.experience = data["experience"]
         self._health = data["health"]
