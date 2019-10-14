@@ -7,11 +7,11 @@ import re
 
 
 def display(text, delay=0.05):
-    for character in text:
+    """Display text character-by-character, as though typing."""
+    for character in text + "\n":
         sys.stdout.write(character)
         sys.stdout.flush()
         time.sleep(delay)
-
 
 class Vector2:
     def __init__(self, *args):
