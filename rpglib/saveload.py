@@ -24,7 +24,8 @@ class SaveSystem:
                 "characters": self.game.character_system.serialize()}
         with open(f"saves/{save_name}.json", "w") as save_file:
             json.dump(data, save_file, indent=4)
-        pass
+        print("Game saved successfully.")
+            
 
     def load(self, save_name):
         """Loads saved game named $save_name"""
@@ -32,17 +33,19 @@ class SaveSystem:
             print("No saves found.")
             return
 
-        with open(f"saves/{save_name}.json", "w") as save_file:
+        with open(f"saves/{save_name}.json", "r") as save_file:
             data = json.load(save_file)
         self.game.timer.deserialize(data["timer"])
         self.game.player.deserialize(data["player"])
         self.game.map.deserialize(data["map"])
         self.game.character_system.deserialize(data["characters"])
-        pass
+        print("Save loaded successfully.")
+
 
     @staticmethod
-    def get_save_names(self):
+    def get_save_names():
         if not os.path.exists("saves"):
             return []
-
-        return [name.split(".")[0] for name in glob.glob("saves/*.json")]
+        
+        # Return just the filename, minus path or extension
+        return [os.path.basename(name).split(".")[0] for name in glob.glob("saves/*.json")]
