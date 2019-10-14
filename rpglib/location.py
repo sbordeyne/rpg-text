@@ -19,7 +19,12 @@ class Location:
     def try_move_to(self, direction):
         direction = direction[0].lower()
         if direction in self.exits:
-            return self.map.get_location_from_position(self.position)
+            vectors = {"n": Vector2(0, -1),
+                       "e": Vector2(1, 0),
+                       "s": Vector2(0, 1),
+                       "w": Vector2(-1, 0)}
+            new_position = self.position + vectors[direction]
+            return self.map.get_location_from_position(new_position)
         else:
             display("Can't go there!")
 
