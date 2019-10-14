@@ -7,7 +7,7 @@ class Location:
         self.y = data["position"][1]
         self.name = data["name"]
 
-        self.exits = data.get("exits", ['n', 's', 'w', 'e'])
+        self.exits = data.get("exits", [])
         self.map_icon = data.get("map_icon", '-')
         self.npc = data.get("npc", [])
         self.map = world_map
