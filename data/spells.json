@@ -1,29 +1,27 @@
 {
-  "fireball": {
-    "type": "aoe/damage",
-    "damage": "lvl d6",
-    "effects": "burning",
-    "level": 3,
-    "job": "spellcaster",
-    "description": "[caster] casted fireball on [target] and dealt [amount] damage!",
-    "cost": 20
+  "Charm Person": {
+    "level": 1
   },
-  "icicle": {
-    "type": "st/damage",
-    "level": 2,
-    "job": "spellcaster",
-    "damage": "2d6",
-    "effects": "frozen",
-    "description": "[caster] casted icicle on [target] and dealt [amount] damage!",
-    "cost": 10
+  "Detect Magic":{
+    "level": 1
   },
-  "rage": {
-    "level": 2,
-    "job": "warrior",
-    "type": "st/buff",
-    "effects": "rage",
-    "description": "[caster] used rage!",
-    "cost": 5
+  "Hold Portal":{
+    "level": 1
+  },
+  "Light":{
+    "level": 1
+  },
+  "Protection from Evil":{
+    "level": 1
+  },
+  "Read Languages":{
+    "level": 1
+  },
+  "Read Magic":{
+    "level": 1
+  },
+  "Sleep":{
+    "level": 1
   },
   "minor_healing": {
     "level": 2,
@@ -32,5 +30,31 @@
     "damage": "lvl d4",
     "description": "[caster] healed [target] for [amount]!",
     "cost": 10
+  },
+  "rage": {
+    "level": 2,
+    "type": "st/buff",
+    "effects": "rage",
+    "job": "warrior",
+    "description": "[caster] used rage!",
+    "cost": 5
+  },
+  "icicle": {
+    "level": 2,
+    "type": "st/damage",
+    "damage": "2d6",
+    "effects": "frozen",
+    "job": "spellcaster",
+    "description": "[caster] casted icicle on [target] and dealt [amount] damage!",
+    "cost": 10
+  },
+  "fireball": {
+    "level": 3,
+    "type": "aoe/damage",
+    "damage": "lvl d6",
+    "effects": "burning",
+    "job": "spellcaster",
+    "description": "[caster] casted fireball on [target] and dealt [amount] damage!",
+    "cost": 20
   }
 }
