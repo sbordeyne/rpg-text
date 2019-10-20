@@ -30,8 +30,8 @@ rpglib
 
 ## Running the GUI version
 
-Simply run `python3 -m 'main-gui.py'` to start off the GUI version of the game
+Simply run `python3 'main-gui.py'` to start off the GUI version of the game
 
 ## Running the CLI version
 
-Run `python3 -m 'main.py'` to start off the CLI version of the game.
+Run `python3 'main.py'` to start off the CLI version of the game.

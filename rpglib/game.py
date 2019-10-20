@@ -91,6 +91,10 @@ class Game:
                 self.player.stats.info()
         self.player.health = self.player.max_health
         self.player.inventory.money.get_random_starting_money()
+        
+        # Clear the screen and start the game
+        clear_screen()
+        
 
     def load_game(self):
         clear_screen()
