@@ -1,3 +1,5 @@
+[![Run on Repl.it](https://repl.it/badge/github/Dogeek/rpg-text)](https://repl.it/github/Dogeek/rpg-text)
+
 # rpg-text
  An object-oriented text RPG based loosely on the rules of Original Dungeons and Dragons.
 
