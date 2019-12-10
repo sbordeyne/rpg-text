@@ -9,7 +9,6 @@ class TkIOWrapper:
 
     def write(self, text, *args, **kwargs):
         self.window.write(text)
-    pass
 
     def flush(self, *args, **kwargs):
         pass
