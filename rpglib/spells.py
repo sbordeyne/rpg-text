@@ -1,4 +1,5 @@
 import json
+from copy import copy
 from .utils import parse_dice_format, interpolate_brackets
 
 
@@ -58,3 +59,20 @@ class SpellList:
     def cast(self, spell, target):
         if spell in self.__dict__.keys():
             self.__dict__[spell].cast(self.entity, target)
+
+
+class SpellBook:
+    def __init__(self, caster):
+        self.prepared_spells = []
+        self.spell_list = []
+        self.caster = caster
+
+    def cast(self, spell, target):
+        self.prepared_spells.remove(spell)
+        spell.cast(self.caster, target)
+
+    def prepare(self, *spells):
+        self.spell_list.extend(spells)
+
+    def on_long_rest(self):
+        self.prepared_spells = copy(self.spell_list)

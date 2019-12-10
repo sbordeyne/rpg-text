@@ -126,3 +126,4 @@ dmypy.json
 
 #save files
 saves/*.json
+.idea/
