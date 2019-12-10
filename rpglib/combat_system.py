@@ -4,6 +4,32 @@ import json
 from .entity import Entity
 
 
+class MonsterParty:
+    def __init__(self, party_name):
+        super().__init__()
+        with open('data/monster_parties.json') as f:
+            data = json.load(f).get(party_name, {})
+        self.name = party_name
+        self.monsters = {}
+        table = data.get('monsters', {})
+        for monster_name in table.keys():
+            n_mobs = parse_dice_format(table[monster_name])
+            for i in range(n_mobs):
+                self.monsters[monster_name + str(i + 1)] = Monster(monster_name)
+        self.treasure = data.get("treasure", None)
+    
+    def attack(self, mobname, *args):
+        self.monsters[mobname].attack(*args)
+    
+    @property
+    def is_dead(self):
+        rv = True
+        for mob in self.monsters.values():
+            if not mob.is_dead:
+                rv = False
+        return rv
+
+
 class Monster(Entity):
     def __init__(self, name):
         super().__init__()
@@ -13,7 +39,8 @@ class Monster(Entity):
         self.type_name = 'monster'
 
         self.level = data.get("level", 1)
-        self.max_health = sum([random.randint(1, 8) for i in range(self.level)])
+        self.lifedice = data.get("lifedice", f"{self.level}d8")
+        self.max_health = parse_dice_format(self.lifedice)
         self.health = self.max_health
         self.ac = data.get("ac", 9)
         self.attacks = data.get("attacks", {"normal": "1d6"})
@@ -46,8 +73,11 @@ class CombatSystem:
         self.n_turns = 0
         self.in_combat = True
         if isinstance(opponent, str):
-            opponent = Monster(opponent)
-        elif not isinstance(opponent, Monster):
+            if opponent.startswith('party'):
+                opponent = MonsterParty(opponent)
+            else:
+                opponent = Monster(opponent)
+        elif not isinstance(opponent, (Monster, MonsterParty)):
             raise TypeError
 
         self.current_opponent = opponent
@@ -88,7 +118,7 @@ class CombatSystem:
     def get_hit(cls, attacker, defender):
         diff_lvl = defender.level - attacker.level
         def_ac = (20 - defender.ac) + diff_lvl + defender.ac_modifier
-        rng = random.randint(1, 20) + attacker.hit_modifier
+        rng = parse_dice_format(f"1d20+{attacker.hit_modifier}")
         return rng >= def_ac
 
     @classmethod

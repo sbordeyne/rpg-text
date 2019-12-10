@@ -5,7 +5,7 @@
       "sting": ["1d3", "poison"]
     },
     "ac": 7,
-    "job": "warrior",
+    "job": "fighter",
     "treasure": "giant_bee_special",
     "xp_value": 6
   },
@@ -15,7 +15,7 @@
     "attacks": {
       "bite": ["1d8", "poison"]
     },
-    "job": "warrior",
+    "job": "fighter",
     "treasure": "U",
     "xp_value": 25
   },
@@ -25,7 +25,7 @@
     "attacks": {
       "bite": ["2d6", "poison"]
     },
-    "job": "warrior",
+    "job": "fighter",
     "treasure": "U",
     "xp_value": 50
   },
@@ -35,7 +35,7 @@
     "attacks": {
       "bite": ["1d8", "poison"]
     },
-    "job": "warrior",
+    "job": "fighter",
     "treasure": "U",
     "xp_value": 125
   },
@@ -46,8 +46,50 @@
       "club": "1d6",
       "bite": "1d3"
     },
-    "job": "warrior",
+    "job": "fighter",
     "treasure": "U",
+    "xp_value": 20
+  },
+  "bandit": {
+    "ac": 6,
+    "level": 1,
+    "attacks": {
+      "sword": "1d6"
+    },
+    "job": "thief",
+    "treasure": "U",
+    "xp_value": 10
+  },
+  "berserker": {
+    "ac": 7,
+    "level": 1,
+    "lifedice": "1d8+1",
+    "attacks": {
+      "broadsword": "1d10"
+    },
+    "job": "fighter",
+    "treasure": "P",
+    "xp_value": 19
+  },
+  "bat": {
+    "ac": 6,
+    "level": 1,
+    "lifedice": "0d1+1",
+    "attacks": {
+      "scream": ["0d1", "confusion"]
+    },
+    "job": "commoner",
+    "treasure": "",
+    "xp_value": 5
+  },
+  "giant_bat": {
+    "ac": 6,
+    "level": 2,
+    "attacks": {
+      "bite": "1d4"
+    },
+    "job": "fighter",
+    "treasure": "",
     "xp_value": 20
   },
   "goblin": {

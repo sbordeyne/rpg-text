@@ -1,0 +1,10 @@
+{
+    "party-goblins":
+    {
+        "monsters": {
+            "goblin": "2d4",
+            "goblin-leader": "1d2-1"
+        },
+        "treasure": "C"
+    }
+}
