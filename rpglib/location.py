@@ -7,7 +7,7 @@ class Location:
         self.y = data["position"][1]
         self.name = data["name"]
 
-        self.exits = data.get("exits", ['n', 's', 'w', 'e'])
+        self.exits = data.get("exits", [])
         self.map_icon = data.get("map_icon", '-')
         self.npc = data.get("npc", [])
         self.map = world_map
@@ -19,7 +19,12 @@ class Location:
     def try_move_to(self, direction):
         direction = direction[0].lower()
         if direction in self.exits:
-            return self.map.get_location_from_position(self.position)
+            vectors = {"n": Vector2(0, -1),
+                       "e": Vector2(1, 0),
+                       "s": Vector2(0, 1),
+                       "w": Vector2(-1, 0)}
+            new_position = self.position + vectors[direction]
+            return self.map.get_location_from_position(new_position)
         else:
             display("Can't go there!")
 

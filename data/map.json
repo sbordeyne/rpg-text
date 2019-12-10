@@ -1,5 +1,12 @@
 [
   {
+    "name": "Fishermen Village",
+    "position": [-1, 0],
+    "map_icon": "V",
+    "exits": ["e"],
+    "npc": ["Angus"]
+  },
+  {
     "name": "Start Area",
     "position": [0, 0],
     "map_icon": "O",
@@ -7,10 +14,24 @@
     "npc": []
   },
   {
-    "name": "Fishermen Village",
-    "position": [-1, 0],
-    "map_icon": "V",
-    "exits": ["n", "s", "e", "w"],
-    "npc": ["Angus"]
+    "name": "Badlands",
+    "position": [1, 0],
+    "map_icon": "O",
+    "exits": ["w"],
+    "npc": []
+  },
+  {
+    "name": "Badlands",
+    "position": [0, -1],
+    "map_icon": "O",
+    "exits": ["s"],
+    "npc": []
+  },
+  {
+    "name": "Badlands",
+    "position": [0, 1],
+    "map_icon": "O",
+    "exits": ["n"],
+    "npc": []
   }
 ]

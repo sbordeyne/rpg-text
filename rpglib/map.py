@@ -14,11 +14,13 @@ class Map:
         self.game = game
 
     def get_location_from_position(self, position):
+        """If position refers to a valid location on the map,
+        return that location. Otherwise, return None"""
         position = Vector2(position)
         for location in self.locations:
             if location.position == position:
                 return location
-        return self.locations[0]
+        return None
 
     def remove_opponent(self, opponent):
         loc = self.game.player.location
