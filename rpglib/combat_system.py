@@ -7,10 +7,16 @@ from .entity import Entity
 class MonsterParty:
     def __init__(self, party_name):
         super().__init__()
-        with open('data/monster_parties.json') as f:
-            data = json.load(f).get(party_name, {})
-        self.name = party_name
         self.monsters = {}
+        self.name = party_name
+        if party_name.startswith('party'):
+            self._init_party()
+        else:
+            self._init_single_party()
+    
+    def _init_party(self):
+        with open('data/monster_parties.json') as f:
+            data = json.load(f).get(self.name, {})
         table = data.get('monsters', {})
         for monster_name in table.keys():
             n_mobs = parse_dice_format(table[monster_name])
@@ -18,8 +24,13 @@ class MonsterParty:
                 self.monsters[monster_name + str(i + 1)] = Monster(monster_name)
         self.treasure = data.get("treasure", None)
     
-    def attack(self, mobname, *args):
-        self.monsters[mobname].attack(*args)
+    def _init_single_party(self):
+        self.monsters[self.name] = Monster(self.name)
+        self.treasure = self.monsters[self.name].treasure
+    
+    def take_combat_turn(self, player):
+        for monster in self.monsters:
+            self.monsters[monster].take_combat_turn(player)
     
     @property
     def is_dead(self):
@@ -59,6 +70,9 @@ class Monster(Entity):
             return attack, parse_dice_format(attack_data), None
         elif isinstance(attack_data, list):
             return attack, parse_dice_format(attack_data[0]), attack_data[1:]
+    
+    def take_combat_turn(self, player):
+        CombatSystem.attack(self, player)
 
 
 class CombatSystem:
@@ -73,10 +87,7 @@ class CombatSystem:
         self.n_turns = 0
         self.in_combat = True
         if isinstance(opponent, str):
-            if opponent.startswith('party'):
-                opponent = MonsterParty(opponent)
-            else:
-                opponent = Monster(opponent)
+            opponent = MonsterParty(opponent)
         elif not isinstance(opponent, (Monster, MonsterParty)):
             raise TypeError
 
@@ -91,6 +102,7 @@ class CombatSystem:
                 command = sanitized_input("> ", error_msg="Invalid Command!")
             opponent.apply_status_effects()
             self.game.player.apply_status_effects()
+            opponent.take_combat_turn(self.game.player)
 
         self.finish_combat()
 
