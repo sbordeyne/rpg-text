@@ -163,6 +163,22 @@ class EquipmentInventory:
             self.inventory.get_item(popped_out)
         self.inventory.remove_item(item)
 
+    def get_total_ac(self):
+        ac = 0
+        def _ac(slot):
+            if slot:
+                return slot.ac_bonus
+            return 0
+        
+        ac += _ac(self.head)
+        ac += _ac(self.body)
+        ac += _ac(self.legs)
+        ac += _ac(self.r_hand)
+        ac += _ac(self.l_hand)
+        for ring in self.rings:
+            ac += _ac(ring)
+        return ac
+
     def de_equip(self, slot):
         """De-equips item in $slot. $slot can be 'all' to de-equip everything"""
         if slot == "head":

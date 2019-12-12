@@ -93,12 +93,38 @@
     "xp_value": 20
   },
   "goblin": {
+    "ac": 6,
     "level": 1,
+    "lifedice": "1d8-1",
     "attacks": {
       "sword": "1d6"
     },
-    "ac": 7,
-    "xp_value": 50
+    "job": "commoner",
+    "treasure": "R",
+    "xp_value": 50,
+    "status_effects": ["goblin-light-sensitivity"]
+  },
+  "goblin-warchief": {
+    "ac": 5,
+    "level": 2,
+    "lifedice": "2d6",
+    "attacks": {
+      "sword": "1d6"
+    },
+    "job": "commoner",
+    "treasure": "R",
+    "xp_value": 75
+  },
+  "goblin-king": {
+    "ac": 4,
+    "level": 3,
+    "lifedice": "0d8+15",
+    "attacks": {
+      "sword": "1d6"
+    },
+    "job": "commoner",
+    "treasure": "R",
+    "xp_value": 100
   },
   "wolf": {
     "level": 1,

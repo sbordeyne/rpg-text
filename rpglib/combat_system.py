@@ -32,6 +32,13 @@ class MonsterParty:
         for monster in self.monsters:
             self.monsters[monster].take_combat_turn(player)
     
+    def combat_state(self):
+        return '\n'.join([f"{monster.name} : {monster.health}/{monster.max_health} HP" for monster in self.monsters.values()])
+    
+    def apply_status_effects(self):
+        for mob in self.monsters.values():
+            mob.apply_status_effects()
+    
     @property
     def is_dead(self):
         rv = True
@@ -64,7 +71,7 @@ class Monster(Entity):
 
     @property
     def damage(self):
-        attack = random.choice(self.attacks.keys())
+        attack = random.choice(list(self.attacks.keys()))
         attack_data = self.attacks[attack]
         if isinstance(attack_data, str):
             return attack, parse_dice_format(attack_data), None
@@ -112,7 +119,7 @@ class CombatSystem:
     def combat_state(self):
         opponent = self.current_opponent
         player = self.game.player
-        opponent_status = f"{opponent.name} : {opponent.health}/{opponent.max_health} HP"
+        opponent_status = opponent.combat_state()
         player_status = f"{player.name} : {player.health}/{player.max_health} HP {player.mana}/{player.max_mana} MP"
         player_moves = " ".join([c.command for c in self.game.command_system.combat_commands])
         return "\n".join([opponent_status, player_status, player_moves])

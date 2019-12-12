@@ -38,11 +38,14 @@ class Game:
     def main_menu(self):
         print("Welcome to rpg-text!")
         print("> New Game")
+        print("> Quick Start")
         print("> Load Game")
         print("> Quit")
         choice = sanitized_input("> ", error_msg="Invalid choice.").lower()
         if choice.startswith("n"):
             self.new_game()
+        elif choice.startswith("q"):
+            self.quick_start()
         elif choice.startswith("l"):
             self.load_game()
         elif choice.startswith("q"):
@@ -95,6 +98,19 @@ class Game:
         # Clear the screen and start the game
         clear_screen()
         
+    def quick_start(self):
+        clear_screen()
+        self.player.name = "Milton"
+        self.player.job = "fighter"
+        saved_health = [8]
+        saved_mana = [1]
+        saved_stats = {k: stat for k, stat in zip(Stats.stat_names, [16, 13, 13, 16, 13, 16])}
+        self.player.inventory.money.get_random_starting_money()
+        self.player.health_rolls = copy(saved_health)
+        self.player.mana_rolls = copy(saved_mana)
+        self.player.stats.recall_stats(saved_stats)
+        self.player.health = self.player.max_health
+        clear_screen()
 
     def load_game(self):
         clear_screen()
@@ -114,6 +130,10 @@ class Game:
             self.shop_system.enter()
         else:
             self.command_system.help('enter')
+    
+    def game_over(self):
+        print("GAME OVER")  # TODO: Add option to load a saved game or exit.
+        sys.exit(1)
 
     def quit(self):
         """Saves and quits the game. Save is named 'autosave'"""

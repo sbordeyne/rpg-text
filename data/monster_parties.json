@@ -3,7 +3,16 @@
     {
         "monsters": {
             "goblin": "2d4",
-            "goblin-leader": "1d2-1"
+            "goblin-warchief": "1d2-1"
+        },
+        "treasure": "C"
+    },
+    "party-goblins-king":
+    {
+        "monsters": {
+            "goblin": "4d6",
+            "goblin-warchief": "2d6",
+            "goblin-king": "0d1+1"
         },
         "treasure": "C"
     }
