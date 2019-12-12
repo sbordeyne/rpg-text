@@ -1,3 +1,14 @@
+class CommandException(Exception):
+    def __init__(self, message=""):
+        self.message
+    
+    def __repr__(self):
+        return self.message
+    
+    def __str__(self):
+        return self.message
+
+
 class Command:
     def __init__(self, command, callback, command_args=None):
         self.command = command.lower()
@@ -62,6 +73,9 @@ class CommandSystem:
                     rv = command(*cmd_args)
                 except TypeError:
                     self.help(command)
+                    return False
+                except CommandException as e:
+                    print(e.message)
                     return False
                 return rv is None
         return False

@@ -110,6 +110,11 @@ class Game:
         self.player.mana_rolls = copy(saved_mana)
         self.player.stats.recall_stats(saved_stats)
         self.player.health = self.player.max_health
+        self.player.inventory.get_item("sword")
+        self.player.inventory.equip_item("sword")
+        self.player.experience = 8000
+        self.player.try_level_up()
+        self.player.try_level_up()
         clear_screen()
 
     def load_game(self):

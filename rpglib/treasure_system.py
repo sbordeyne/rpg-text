@@ -110,10 +110,11 @@ class TreasureSystem:
 
     def add_treasure(self, treasure_type):
         player = self.game.player
-        treasure = TreasureSystem.get_treasure(treasure_type)
-        for k, v in treasure.calculate().items():
+        treasure = TreasureSystem.get_treasure(treasure_type).calculate().items()
+        for k, v in treasure:
             if k != "items":
                 player.inventory.money.update(k, v)
             elif k == "items":
                 for item in v:
                     player.inventory.get_item(item)
+        return treasure

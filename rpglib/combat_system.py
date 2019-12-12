@@ -2,6 +2,7 @@ from .utils import sanitized_input, parse_dice_format
 import random
 import json
 from .entity import Entity
+from .command_system import CommandException
 
 
 class MonsterParty:
@@ -13,6 +14,9 @@ class MonsterParty:
             self._init_party()
         else:
             self._init_single_party()
+    
+    def __str__(self):
+        return ", ".join([m.name for m in self.monsters.values()])
     
     def _init_party(self):
         with open('data/monster_parties.json') as f:
@@ -38,6 +42,20 @@ class MonsterParty:
     def apply_status_effects(self):
         for mob in self.monsters.values():
             mob.apply_status_effects()
+    
+    def get_opponent_from_str(self, opponent):
+        rv = self.monsters.get(opponent)
+        if rv:
+            return rv
+        else:
+            raise CommandException("Invalid monster name. Available names are {}".format(", ".join(list(self.monsters.keys()))))
+
+    def get_random_opponent(self):
+        return random.choice(list(self.monsters.values()))
+    
+    @property
+    def xp_value(self):
+        return sum([m.xp_value for m in self.monsters.values()])
     
     @property
     def is_dead(self):

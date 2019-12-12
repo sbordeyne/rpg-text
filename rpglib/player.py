@@ -97,8 +97,8 @@ STATS : {str(self.stats)}"""
         if weapon is not None:
             default[0] = self.inventory.equipped.r_hand.display_name
             default[1] = weapon.damage + self.stats.str.modifier
-        if weapon.effects_on_hit:
-            default[2].extend(weapon.effects_on_hit)
+            if weapon.effects_on_hit:
+                default[2].extend(weapon.effects_on_hit)
         self.damage = default
 
     def ranged_attack(self):
@@ -122,8 +122,8 @@ STATS : {str(self.stats)}"""
             return
         self.damage = default
 
-    def attack(self):
-        """Performs an attack."""
+    def attack(self, opponent=None):
+        """Performs an attack on $opponent."""
         weapon = self.inventory.equipped.r_hand
         if weapon is None:
             self.melee_attack()
@@ -131,6 +131,12 @@ STATS : {str(self.stats)}"""
             self.ranged_attack()
         else:
             self.melee_attack()
+        if isinstance(opponent, str):
+            opponent = self.game.combat_system.current_opponent.get_opponent_from_str(opponent)
+        elif opponent is None:
+            opponent = self.game.combat_system.current_opponent.get_random_opponent()
+            
+        self.game.combat_system.attack(self, opponent)
 
     def flee(self):
         """Attempts to flee the fight."""
@@ -181,7 +187,10 @@ STATS : {str(self.stats)}"""
 
     def end_combat(self, opponent: Monster):
         self.gain_experience(opponent.xp_value)
-        self.game.treasure_system.add_treasure(opponent.treasure)
+        treasure = self.game.treasure_system.add_treasure(opponent.treasure)
+        print(f"You won versus {str(opponent)} and gained:",
+              f"XP : {opponent.xp_value}",
+              f"Treasure : {str(treasure)}")
         for effect in self.status_effects:
             effect.remove()
         self.status_effects = []
