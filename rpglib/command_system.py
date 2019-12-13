@@ -1,6 +1,6 @@
 class CommandException(Exception):
     def __init__(self, message=""):
-        self.message
+        self.message = message
     
     def __repr__(self):
         return self.message
@@ -102,6 +102,7 @@ class CommandSystem:
     def help_combat(self, command=None):
         """Shows this message."""
         self.help(command, command_set=self.combat_commands)
+        raise CommandException("")
 
     def help_shop(self, command=None):
         """Shows this message."""

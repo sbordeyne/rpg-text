@@ -187,10 +187,11 @@ STATS : {str(self.stats)}"""
 
     def end_combat(self, opponent: Monster):
         self.gain_experience(opponent.xp_value)
-        treasure = self.game.treasure_system.add_treasure(opponent.treasure)
-        print(f"You won versus {str(opponent)} and gained:",
-              f"XP : {opponent.xp_value}",
-              f"Treasure : {str(treasure)}")
+        treasure = self.game.treasure_system.get_treasure(opponent.treasure).calculate()
+        self.game.treasure_system.add_treasure(treasure)
+        print(f"You won versus {str(opponent)} and gained:\n",
+              f"XP : {opponent.xp_value}\n",
+              f"Treasure : {self.game.treasure_system.format_treasure(treasure)}")
         for effect in self.status_effects:
             effect.remove()
         self.status_effects = []

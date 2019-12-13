@@ -121,13 +121,21 @@ class TreasureSystem:
     def get_treasure(treasure_type):
         return Treasure(treasure_type)
 
-    def add_treasure(self, treasure_type):
+    def add_treasure(self, treasure):
         player = self.game.player
-        treasure = TreasureSystem.get_treasure(treasure_type).calculate().items()
-        for k, v in treasure:
+        for k, v in treasure.items():
             if k != "items":
                 player.inventory.money.update(k, v)
             elif k == "items":
                 for item in v:
                     player.inventory.get_item(item)
         return treasure
+
+    def format_treasure(self, treasure: dict):
+        rv = ""
+        for k, v in treasure.items():
+            if k == 'coins':
+                rv += ", ".join([f'{ctype.upper()} : {cvalue}' for ctype, cvalue in v.items()]) + '\n'
+            else:
+                rv += ", ".join([i.capitalize() for i in v]) + '\n'
+        return rv
