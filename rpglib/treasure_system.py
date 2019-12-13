@@ -92,6 +92,19 @@ class Treasure:
                 "gems": gem_rv,
                 "jewels": jewels_rv,
                 "items": item_rv}
+    
+    @classmethod
+    def get_type_from_average_value(cls, total_average_value, default_type="T"):
+        with open("data/treasures.json") as f:
+            data = json.load(f)
+        data = {ttype: data[ttype].get('average_value', 0) for ttype in data}
+        rv = ""
+        dist = 9999999
+        for ttype, tvalue in data.keys():
+            if abs(total_average_value - tvalue) < dist:
+                rv = ttype
+                dist = abs(total_average_value - tvalue)
+        return rv if rv else default_type
 
     @staticmethod
     def has_item(percent):

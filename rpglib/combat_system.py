@@ -3,6 +3,7 @@ import random
 import json
 from .entity import Entity
 from .command_system import CommandException
+from .treasure_system import Treasure
 
 
 class MonsterParty:
@@ -27,6 +28,9 @@ class MonsterParty:
             for i in range(n_mobs):
                 self.monsters[monster_name + str(i + 1)] = Monster(monster_name)
         self.treasure = data.get("treasure", None)
+        if not self.treasure:
+            total_average_value = sum([Treasure(m.treasure).average_value for m in self.monsters.values()])
+            self.treasure = Treasure.get_type_from_average_value(total_average_value)
     
     def _init_single_party(self):
         self.monsters[self.name] = Monster(self.name)
@@ -171,3 +175,11 @@ class CombatSystem:
                       f"({', '.join(status_effects)})!")
         else:
             print(f"{attacker.name} attacked {defender.name} with {attack} and did not hit!")
+
+    @classmethod
+    def aoe_attack(cls, attacker, defender):
+        if isinstance(defender, Entity):
+            return cls.attack(attacker, defender)
+        elif isinstance(defender, MonsterParty):
+            for mob in defender.monsters.values():
+                cls.attack(attacker, mob)
