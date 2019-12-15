@@ -1,16 +1,38 @@
 import tkinter as tk
+import tkinter.font as tkfont
+import tkinter.filedialog as fd
+import string
 from collections import defaultdict, OrderedDict
 import json
 
+
+def get_avg_charwidth(widget=None, text=None):
+    if text is None:
+        text = string.printable
+    if widget is None:
+        font = tkfont.Font(font='TkTextFont')
+    else:
+        font = tkfont.Font(font=widget['font'])
+    return sum([font.measure(c) for c in text]) / len(text)
+        
 
 class DataSerializer:
     def __init__(self, filename='map.json'):
         self.filename = filename
         self.data = defaultdict(dict)
 
-    def save(self, *args):
-        with open(self.filename, 'w') as f:
-            json.dump(self.data, f)
+    def save(self, filename=None):
+        fname = filename or self.filename
+        self.filename = fname
+        with open(fname, 'w') as f:
+            json.dump(self.data, f, indent=4)
+    
+    def load(self, filename=None):
+        fname = filename or self.filename
+        self.filename = fname
+        with open(self.filename) as f:
+            data = json.load(f)
+        self.data.update(data)
 
     @staticmethod
     def format_name(name):
@@ -26,7 +48,6 @@ class MapView(tk.Canvas):
         self.cursor = self.create_rectangle((0, 0, 16, 16))
         self.selected_position = (0, 0)
         self.bind('<Button-1>', self.on_click)
-        pass
 
     def on_click(self, event):
         x = self.canvasx(event.x)
@@ -54,6 +75,8 @@ class FormView(tk.Frame):
         super().__init__(*args, **kwargs)
         self.variables = defaultdict(tk.StringVar)
         self.exits_var = [tk.IntVar() for i in range(4)]
+        for var in self.exits_var:
+            var.set(1)
 
         self.exits_frame = tk.Frame(self)
         self.form_entries = OrderedDict()
@@ -61,14 +84,16 @@ class FormView(tk.Frame):
         self.form_exits = OrderedDict()
         self.form_entries_names = ('Location Name', 'Description', 'NPCs', 'Icon')
         self.exits_names = ('N', 'S', 'E', 'W')
-        self.position_label_lbl = tk.Label(self, text='Position :')
-        self.position_label = tk.Label(self, text='(0, 0)')
+        self.position_variable = tk.StringVar()
+        self.position_variable.set('(0, 0)')
+        self.position_label_lbl = tk.Label(self, text='Position : ')
+        self.position_label = tk.Label(self, textvariable=self.position_variable)
         for entry in self.form_entries_names:
             self.form_labels[entry] = tk.Label(self, text=entry + ' :')
             if not entry == 'Description':
-                self.form_entries[entry] = tk.Entry(self, textvariable=self.variables[entry])
+                self.form_entries[entry] = tk.Entry(self, textvariable=self.variables[entry], width=20)
             else:
-                self.form_entries[entry] = tk.Text(self)
+                self.form_entries[entry] = tk.Text(self, width=20)
         for i, ext in enumerate(self.exits_names):
             self.form_exits[ext + '_label'] = tk.Label(self.exits_frame, text=ext + " :")
             self.form_exits[ext + '_checkbox'] = tk.Checkbutton(self.exits_frame, variable=self.exits_var[i])
@@ -76,19 +101,24 @@ class FormView(tk.Frame):
         self.save_button = tk.Button(self, text='Save', command=self.save_btn)
         self.setup_ui()
 
+    def set_position_label(self, x, y):
+        self.position_variable.set(f'({x}, {y})')
+        self.update()
+        self.update_idletasks()
+
     def setup_ui(self):
-        self.position_label_lbl.grid(row=0, column=0)
-        self.position_label.grid(row=0, column=1)
+        self.position_label_lbl.grid(row=0, column=0, sticky='w')
+        self.position_label.grid(row=0, column=1, sticky='w')
         for i, entry_lbl in enumerate(self.form_labels.values()):
-            entry_lbl.grid(row=i + 1, column=0)
+            entry_lbl.grid(row=i + 1, column=0, sticky='w')
         for i, entry_entry in enumerate(self.form_entries.values()):
             entry_entry.grid(row=i + 1, column=1, sticky='we')
-        for i, ety in enumerate(self.form_exits.values()):
-            ety.grid(row=0, column=i + 1)
+        for i, w in enumerate(self.form_exits.values()):
+            w.grid(row=0, column=i + 1)
         x = len(self.form_labels.values()) + 1
-        self.exits_label.grid(row=x, column=0)
-        self.exits_frame.grid(row=x, column=1)
-        self.save_button.grid(row=x + 1, column=0)
+        self.exits_label.grid(row=x, column=0, sticky='w')
+        self.exits_frame.grid(row=x, column=1, sticky='w')
+        self.save_button.grid(row=x + 1, column=0, sticky='w')
 
     def save_btn(self, *args):
         self.master.canvas.position_saved()
@@ -105,8 +135,8 @@ class FormView(tk.Frame):
         for key, val in self.master.data.data.items():
             if val.get('position') == [x, y]:
                 name = key
-        print(name, x, y)
-        self.position_label.config(text=f'({x}, {y})')
+                break
+            
         if self.master.data.data[name] != {}:
             self.form_entries['Description'].delete('1.0', tk.END)
             self.form_entries["Description"].insert(tk.END, self.master.data.data[name]['description'])
@@ -129,6 +159,10 @@ class MapCreatorGUI(tk.Frame):
         kwargs['master'] = master
         super().__init__(*args, **kwargs)
         self.master = master
+        self.menubar = tk.Menu(self.master)
+        self.menubar.add_command(label="Save", command=self._on_data_save)
+        self.menubar.add_command(label="Load", command=self._on_data_load)
+        self.master.config(menu=self.menubar)
 
         self.form_frame = FormView(self)
         self.canvas = MapView(self, width=512, height=512, background='white')
@@ -136,15 +170,38 @@ class MapCreatorGUI(tk.Frame):
         self.data = DataSerializer()
 
         master.bind('<Control-s>', self.data.save)
+        master.bind('<Configure>', self.on_configure)
         self.setup_ui()
         self.loop()
 
     def setup_ui(self):
         self.canvas.pack(side=tk.LEFT)
         self.canvas.update()
-        self.form_frame.pack(side='top')
+        self.form_frame.pack(side=tk.LEFT)
 
-        pass
+    def on_configure(self, event):
+        canvw = 512  # self.canvas['width']
+        longest_label_name = sorted(self.form_frame.form_entries_names, key=len)[-1]
+        margin_width = get_avg_charwidth(self.form_frame.form_labels[longest_label_name],
+                                         longest_label_name) * len(longest_label_name)
+        new_width = abs(int(self.winfo_width()) - int(canvw) - margin_width)                   
+        cw = 8.8  # get_avg_charwidth()
+        new_width_in_characters = int(new_width // cw)
+        for entry in self.form_frame.form_entries_names:
+            self.form_frame.form_entries[entry].config(width=new_width_in_characters)
+            
+    def _on_data_load(self, *args):
+        fname = fd.askopenfilename()
+        self.data.load(fname)
+        for v in [_ for _ in self.data.data.values() if _]:
+            x, y = v['position']
+            x *= 16
+            y *= 16
+            self.canvas.create_rectangle(x, y, x + 16, y + 16, stipple='gray50', fill='grey')
+    
+    def _on_data_save(self, *args):
+        fname = fd.asksaveasfilename()
+        self.data.save(fname)
 
     def loop(self):
         self.after(50, self.loop)
@@ -152,8 +209,9 @@ class MapCreatorGUI(tk.Frame):
 
 if __name__ == '__main__':
     root = tk.Tk()
-    root.geometry('800x512')
-    root.resizable(False, False)
+    root.geometry('800x525')
+    root.minsize(800, 525)
+    root.resizable(True, False)
     root.title('RPG Text Map Creator')
     window = MapCreatorGUI(root)
     window.pack(expand=True, fill=tk.BOTH)
