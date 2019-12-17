@@ -12,6 +12,7 @@ class Location:
         self.description = "\n".join([f"Entered {str(self)}",
                                       data.get("description", "")])
         self.npc = data.get("npc", [])
+        self.submaps = data.get("submaps", [])
         self.map = world_map
 
     @property

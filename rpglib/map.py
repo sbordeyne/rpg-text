@@ -17,6 +17,9 @@ class Map:
             self.locations.append(Location(self, location))
         self.game = game
 
+    def get_submaps(self):
+        return self.game.player.location.submaps
+
     def get_location_from_position(self, position):
         """If position refers to a valid location on the map,
         return that location. Otherwise, return None"""
