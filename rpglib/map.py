@@ -26,12 +26,11 @@ class Map:
         loc = self.game.player.location
         loc.remove_opponent(opponent)
 
-    def display(self):
+    def display(self, radius=1):
         """Shows the map."""
         clear_screen()
-        offsets = [[(-1, -1), (0, -1), (1, -1)],
-                   [(-1, 0), (0, 0), (1, 0)],
-                   [(-1, 1), (0, 1), (1, 1)]]
+        offsets = [[(x, y) for x in range(-radius, radius + 1)] for y in range(-radius, radius + 1)]
+
         for row in offsets:
             for offset in row:
                 loc = self.get_location_from_position(self.game.player.position + Vector2(*offset))
