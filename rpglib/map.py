@@ -28,28 +28,18 @@ class Map:
 
     def display(self):
         """Shows the map."""
-        loc00 = self.get_location_from_position(self.game.player.position + Vector2(-1, -1))
-        loc10 = self.get_location_from_position(self.game.player.position + Vector2(0, -1))
-        loc20 = self.get_location_from_position(self.game.player.position + Vector2(1, -1))
-        loc01 = self.get_location_from_position(self.game.player.position + Vector2(-1, 0))
-        loc11 = self.game.player.location
-        loc21 = self.get_location_from_position(self.game.player.position + Vector2(1, 0))
-        loc02 = self.get_location_from_position(self.game.player.position + Vector2(-1, 1))
-        loc12 = self.get_location_from_position(self.game.player.position + Vector2(0, 1))
-        loc22 = self.get_location_from_position(self.game.player.position + Vector2(1, 1))
         clear_screen()
-        sys.stdout.write(loc00.map_icon)
-        sys.stdout.write(loc10.map_icon)
-        sys.stdout.write(loc20.map_icon)
-        sys.stdout.write("\n")
-        sys.stdout.write(loc01.map_icon)
-        sys.stdout.write(loc11.map_icon)
-        sys.stdout.write(loc21.map_icon)
-        sys.stdout.write("\n")
-        sys.stdout.write(loc02.map_icon)
-        sys.stdout.write(loc12.map_icon)
-        sys.stdout.write(loc22.map_icon)
-        sys.stdout.write("\n")
+        offsets = [[(-1, -1), (0, -1), (1, -1)],
+                   [(-1, 0), (0, 0), (1, 0)],
+                   [(-1, 1), (0, 1), (1, 1)]]
+        for row in offsets:
+            for offset in row:
+                loc = self.get_location_from_position(self.game.player.position + Vector2(*offset))
+                if loc is not None:
+                    sys.stdout.write(loc.map_icon)
+                else:
+                    sys.stdout.write(" ")
+            sys.stdout.write("\n")
 
     def serialize(self):
         data = [location.serialize() for location in self.locations]
