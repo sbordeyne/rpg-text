@@ -5,9 +5,13 @@ import sys
 
 
 class Map:
-    def __init__(self, game):
+    def __init__(self, game, mapname=None):
         self.locations = []
-        with open("data/map.json") as f:
+        if mapname is None:
+            self.mapname = 'map'
+        else:
+            self.mapname = mapname
+        with open(f"data/maps/{self.mapname}.json") as f:
             data = json.load(f)
         for location in data:
             self.locations.append(Location(self, location))

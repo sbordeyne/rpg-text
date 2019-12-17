@@ -135,7 +135,7 @@ STATS : {str(self.stats)}"""
             opponent = self.game.combat_system.current_opponent.get_opponent_from_str(opponent)
         elif opponent is None:
             opponent = self.game.combat_system.current_opponent.get_random_opponent()
-            
+
         self.game.combat_system.attack(self, opponent)
 
     def flee(self):
@@ -179,7 +179,7 @@ STATS : {str(self.stats)}"""
         location = self.location.try_move_to(direction)
         if location is not None:
             self.location = location
-            print(f"Entered {self.location}")
+            print(self.location.description)
 
     def gain_experience(self, xp_value):
         self.experience += xp_value * (1 + self.xp_bonus)

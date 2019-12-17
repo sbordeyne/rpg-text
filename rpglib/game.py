@@ -94,10 +94,10 @@ class Game:
                 self.player.stats.info()
         self.player.health = self.player.max_health
         self.player.inventory.money.get_random_starting_money()
-        
+
         # Clear the screen and start the game
         clear_screen()
-        
+
     def quick_start(self):
         clear_screen()
         self.player.name = "Milton"
@@ -130,12 +130,18 @@ class Game:
             self.save_system.load(save_name)
 
     def enter(self, location):
-        """Enter a location, or a shop. Specify the location to enter (shop)"""
+        """Enter a location, or a shop. Specify the location to enter (shop, submap)"""
         if location == "shop":
             self.shop_system.enter()
+        elif location in self.map.get_submaps():
+            self.map = Map(self, location)
         else:
             self.command_system.help('enter')
-    
+
+    def exit(self):
+        """Exits to the world map."""
+        self.map = Map(self)
+
     def game_over(self):
         print("GAME OVER")  # TODO: Add option to load a saved game or exit.
         sys.exit(1)

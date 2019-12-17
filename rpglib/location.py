@@ -9,6 +9,8 @@ class Location:
 
         self.exits = data.get("exits", [])
         self.map_icon = data.get("map_icon", '-')
+        self.description = "\n".join([f"Entered {str(self)}",
+                                      data.get("description", "")])
         self.npc = data.get("npc", [])
         self.map = world_map
 
