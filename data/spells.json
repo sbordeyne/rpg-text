@@ -1,29 +1,90 @@
 {
-  "fireball": {
-    "type": "aoe/damage",
-    "damage": "lvl d6",
-    "effects": "burning",
-    "level": 3,
-    "job": "spellcaster",
-    "description": "[caster] casted fireball on [target] and dealt [amount] damage!",
-    "cost": 20
+  "Charm Person": {
+    "level": 1
   },
-  "icicle": {
-    "type": "st/damage",
-    "level": 2,
-    "job": "spellcaster",
-    "damage": "2d6",
-    "effects": "frozen",
-    "description": "[caster] casted icicle on [target] and dealt [amount] damage!",
-    "cost": 10
+  "Detect Magic":{
+    "level": 1
   },
-  "rage": {
-    "level": 2,
-    "job": "warrior",
-    "type": "st/buff",
-    "effects": "rage",
-    "description": "[caster] used rage!",
-    "cost": 5
+  "Hold Portal":{
+    "level": 1
+  },
+  "Light":{
+    "level": 1
+  },
+  "Magic Missile":{
+    "level": 1
+  },
+  "Protection from Evil":{
+    "level": 1
+  },
+  "Read Languages":{
+    "level": 1
+  },
+  "Read Magic":{
+    "level": 1
+  },
+  "Sleep":{
+    "level": 1
+  },
+  "Shield":{
+    "level": 1
+  },
+  "Ventriliquism":{
+    "level": 1
+  },
+  "Cure Light Wounds":{
+    "level": 1
+  },
+  "Purify Food/Water":{
+    "level": 1
+  },
+  "Continual Light":{
+    "level": 2
+  },
+  "Darkness, 5' radius":{
+    "level": 2
+  },
+  "Detect Evil":{
+    "level": 2
+  },
+  "Detect Invisible":{
+    "level": 2
+  },
+  "ESP":{
+    "level": 2
+  },
+  "Invisibility":{
+    "level": 2
+  },
+  "Knock":{
+    "level": 2
+  },
+  "Levitate":{
+    "level": 2
+  },
+  "Locate Object":{
+    "level": 2
+  },
+  "Magic Mouth":{
+    "level": 2
+  },
+  "Mirror Image":{
+    "level": 2
+  },
+  "Phantasmal Forces":{
+    "level": 2
+  },
+  "Pyrotechnics":{
+    "level": 2
+  },
+  "Strength":{
+    "level": 2
+  },
+  "Web":{
+    "level": 2
+  },
+  "Wizard Lock":{
+    "level": 2
   },
   "minor_healing": {
     "level": 2,
@@ -32,5 +93,397 @@
     "damage": "lvl d4",
     "description": "[caster] healed [target] for [amount]!",
     "cost": 10
+  },
+  "rage": {
+    "level": 2,
+    "type": "st/buff",
+    "effects": "rage",
+    "job": "warrior",
+    "description": "[caster] used rage!",
+    "cost": 5
+  },
+  "icicle": {
+    "level": 2,
+    "type": "st/damage",
+    "damage": "2d6",
+    "effects": "frozen",
+    "job": "spellcaster",
+    "description": "[caster] casted icicle on [target] and dealt [amount] damage!",
+    "cost": 10
+  },
+  "Bless":{
+    "level": 2
+  },
+  "Find Traps":{
+    "level": 2
+  },
+  "Silence, 15' radius":{
+    "level": 2
+  },
+  "Snake Charm":{
+    "level": 2
+  },
+  "Speak with Animals":{
+    "level": 2
+  },
+  "Clairaudience":{
+    "level": 3
+  },
+  "Clairvoyance":{
+    "level": 3
+  },
+  "Dispel Magic":{
+    "level": 3
+  },
+  "Explosive Runes":{
+    "level": 3
+  },
+  "Fire Ball": {
+    "level": 3,
+    "type": "aoe/damage",
+    "damage": "lvl d6",
+    "effects": "burning",
+    "job": "spellcaster",
+    "description": "[caster] casted fireball on [target] and dealt [amount] damage!",
+    "cost": 20
+  },
+  "Fly":{
+    "level": 3
+  },
+  "Haste":{
+    "level": 3
+  },
+  "Hold Person":{
+    "level": 3
+  },
+  "Infravision":{
+    "level": 3
+  },
+  "Invisibility (10' r.)":{
+    "level": 3
+  },
+  "Lightning Bolt":{
+    "level": 3
+  },
+  "Monster Summoning I":{
+    "level": 3
+  },
+  "Protection/Evil (10' r.)":{
+    "level": 3
+  },
+  "Protection/Normal Missiles":{
+    "level": 3
+  },
+  "Rope Trick":{
+    "level": 3
+  },
+  "Slow":{
+    "level": 3
+  },
+  "Suggestion":{
+    "level": 3
+  },
+  "Water Breathing":{
+    "level": 3
+  },
+  "Cure Disease":{
+    "level": 3
+  },
+  "Prayer":{
+    "level": 3
+  },
+  "Speak with Dead":{
+    "level": 3
+  },
+  "Charm Monster":{
+    "level": 4
+  },
+  "Confusion":{
+    "level": 4
+  },
+  "Dimension Door":{
+    "level": 4
+  },
+  "Extension I":{
+    "level": 4
+  },
+  "Fear":{
+    "level": 4
+  },
+  "Growth/Plant":{
+    "level": 4
+  },
+  "Hallucinatory Terrain":{
+    "level": 4
+  },
+  "Ice Storm":{
+    "level": 4
+  },
+  "Massmorph":{
+    "level": 4
+  },
+  "Monster Summoning II":{
+    "level": 4
+  },
+  "Polymorph Others":{
+    "level": 4
+  },
+  "Remove Curse":{
+    "level": 4
+  },
+  "Wall of Fire":{
+    "level": 4
+  },
+  "Wall of Ice":{
+    "level": 4
+  },
+  "Wizard Eye":{
+    "level": 4
+  },
+  "Create Water":{
+    "level": 4
+  },
+  "Cure Serious Wounds":{
+    "level": 4
+  },
+  "Neutralize Poison":{
+    "level": 4
+  },
+  "Speak with Plants":{
+    "level": 4
+  },
+  "Turn Sticks to Snakes":{
+    "level": 4
+  },
+  "Animate Dead":{
+    "level": 5
+  },
+  "Cloudkill":{
+    "level": 5
+  },
+  "Conjure Elemental":{
+    "level": 5
+  },
+  "Contact Higher Plane":{
+    "level": 5
+  },
+  "Extension II":{
+    "level": 5
+  },
+  "Feeblemind":{
+    "level": 5
+  },
+  "Growth/Animal":{
+    "level": 5
+  },
+  "Hold Monster":{
+    "level": 5
+  },
+  "Magic Jar":{
+    "level": 5
+  },
+  "Monster Summoning III":{
+    "level": 5
+  },
+  "Pass-Wall":{
+    "level": 5
+  },
+  "Telekenesis":{
+    "level": 5
+  },
+  "Teleport":{
+    "level": 5
+  },
+  "Wall of Iron":{
+    "level": 5
+  },
+  "Wall of Stone":{
+    "level": 5
+  },
+  "Commune":{
+    "level": 5
+  },
+  "Create Food":{
+    "level": 5
+  },
+  "Dispel Evil":{
+    "level": 5
+  },
+  "Finger of Death":{
+    "level": 5
+  },
+  "Insect Plague":{
+    "level": 5
+  },
+  "Quest":{
+    "level": 5
+  },
+  "Raise Dead":{
+    "level": 5
+  },
+  "Anti-magic Shell":{
+    "level": 6
+  },
+  "Control Weather":{
+    "level": 6
+  },
+  "Death Spell":{
+    "level": 6
+  },
+  "Disintegrate":{
+    "level": 6
+  },
+  "Geas":{
+    "level": 6
+  },
+  "Invisible Stalker":{
+    "level": 6
+  },
+  "Legend Lore":{
+    "level": 6
+  },
+  "Lower Water":{
+    "level": 6
+  },
+  "Monster Summoning IV":{
+    "level": 6
+  },
+  "Move Earth":{
+    "level": 6
+  },
+  "Part Water":{
+    "level": 6
+  },
+  "Projected Image":{
+    "level": 6
+  },
+  "Reincarnation":{
+    "level": 6
+  },
+  "Repulsion":{
+    "level": 6
+  },
+  "Stone-Flesh":{
+    "level": 6
+  },
+  "Animate Objects":{
+    "level": 6
+  },
+  "Blade Barrier":{
+    "level": 6
+  },
+  "Conjure Animals":{
+    "level": 6
+  },
+  "Find the Path":{
+    "level": 6
+  },
+  "Speak with Monsters":{
+    "level": 6
+  },
+  "Word of Recall":{
+    "level": 6
+  },
+  "Charm Plants":{
+    "level": 7
+  },
+  "Delayed Blast Fire Ball":{
+    "level": 7
+  },
+  "Extension III":{
+    "level": 7
+  },
+  "Limited Wish":{
+    "level": 7
+  },
+  "Mass Invisibitility":{
+    "level": 7
+  },
+  "Monster Summoning V":{
+    "level": 7
+  },
+  "Phase Door":{
+    "level": 7
+  },
+  "Power Word: Stun":{
+    "level": 7
+  },
+  "Reverse Gravity":{
+    "level": 7
+  },
+  "Simulacrum":{
+    "level": 7
+  },
+  "Aerial Servant":{
+    "level": 7
+  },
+  "Earthquake":{
+    "level": 7
+  },
+  "Holy Word":{
+    "level": 7
+  },
+  "Raise Dead Fully":{
+    "level": 7
+  },
+  "Restoration":{
+    "level": 7
+  },
+  "Wind Walk":{
+    "level": 7
+  },
+  "Clone":{
+    "level": 8
+  },
+  "Mass Charm":{
+    "level": 8
+  },
+  "Mind Blank":{
+    "level": 8
+  },
+  "Monster Summoning VI":{
+    "level": 8
+  },
+  "Permanent Spell":{
+    "level": 8
+  },
+  "Polymorph Any Object":{
+    "level": 8
+  },
+  "Power Word: Blind":{
+    "level": 8
+  },
+  "Symbol":{
+    "level": 8
+  },
+  "Astral Spell":{
+    "level": 9
+  },
+  "Gate":{
+    "level": 9
+  },
+  "Maze":{
+    "level": 9
+  },
+  "Meteor Swarm":{
+    "level": 9
+  },
+  "Monster Summoning VII":{
+    "level": 9
+  },
+  "Power Word: Kill":{
+    "level": 9
+  },
+  "Prismatic Wall":{
+    "level": 9
+  },
+  "Shape Change":{
+    "level": 9
+  },
+  "Time Stop":{
+    "level": 9
+  },
+  "Wish":{
+    "level": 9
   }
 }
